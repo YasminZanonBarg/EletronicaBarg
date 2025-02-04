@@ -1,7 +1,12 @@
-export function ServiceOrder() {
+import { NavigationRail } from "../../components/NavigationRail"
+import { Header } from "../../components/Header"
+
+
+export function GeralServiceOrder() {
     return(
         <div>
-            <h1>Service Order Page</h1>
+            <NavigationRail />
+            <Header />
         </div>
     )
 }
