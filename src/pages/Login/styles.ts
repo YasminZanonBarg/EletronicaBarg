@@ -2,19 +2,22 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   display: flex;
-  height: 100vh; /* Ocupa a tela inteira */
+  height: 100vh; 
 `
 
 export const TextContainer = styled.div`
   width: 45%;
-  padding: 7rem;
+  padding: 5rem 7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
   
   div {
     margin-bottom: 2.5rem;
   }
 
   h1 {
-    font-size: 5rem;
+    font-size: 4.5vw; 
     text-shadow: 2px 2px 4px ${(props) => props.theme['gray-600']};
   }
 `
@@ -30,8 +33,7 @@ export const ImageContainer = styled.div`
   }
 `
 
-
-// Adiciona a tipagem do Web Component, incluindo as propriedades customizadas
+// Web Component estilizado: 
 export const OutlinedTextFieldStyled = styled('md-outlined-text-field')<{
   label?: string;
   error?: boolean;
@@ -40,10 +42,30 @@ export const OutlinedTextFieldStyled = styled('md-outlined-text-field')<{
   type?: string;
   children?: React.ReactNode;
 }>`
-  --md-outlined-text-field-container-shape: 20px;
+  --md-outlined-text-field-container-shape: 30px;
+  --md-outlined-text-field-focus-outline-color: ${(props) => props.theme['green-400']};	
+  --md-sys-color-primary: ${(props) => props.theme['green-500']};	
+
+  display: block;
+  margin-bottom: 1.8rem;
+  width: 100%;
+  max-width: 30rem; 
+  height: 3.4rem;
+
+  .icon-button {
+    margin-left: -1rem; 
+  }
 `
 
-// Web Component estilizado: Button
 export const FilledButtonStyled = styled('md-filled-button')`
-  --md-filled-button-container-shape: 20px; 
+  --md-filled-button-container-shape: 30px; 
+  --md-sys-color-primary: ${(props) => props.theme['green-500']};
+  --md-sys-color-on-primary: ${(props) => props.theme['green-200']};
+  --md-filled-button-label-text-color: ${(props) => props.theme['white']};	
+
+  width: 100%;
+  max-width: 30rem; 
+  height: 3.4rem; 
+  opacity: 0.8;
+  margin-top: 1rem;
 `
