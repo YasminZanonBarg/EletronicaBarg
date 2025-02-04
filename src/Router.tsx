@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { Login } from './pages/Login'
-import { ServiceOrder } from './pages/ServiceOrder'
+import { ServiceOrder } from './pages/GeralServiceOrder'
 
 export function Router() {
     return(

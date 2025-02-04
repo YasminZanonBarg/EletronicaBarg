@@ -13,4 +13,13 @@ export const defaultTheme = {
     'green-200': '#EFFAE8',
   
     'red-300': '#DF0000',
+
+    /*Status color*/
+    'aguardando-orcamento': '#89A5BE',
+    'pendente-aprovacao': '#ECB13E',
+    'conserto-negado': '#CC6060',
+    'pendente-conserto': '#EBD726',
+    'consertado': '#A9C997',
+    'consertado-retirado': '#EFFAE8',
+    'sem-conserto-retirado': '#C24242',
   } as const
