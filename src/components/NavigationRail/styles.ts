@@ -1,3 +1,4 @@
+import styled from "styled-components"
 
 export const RailContainer = styled.nav`
   width: 80px;

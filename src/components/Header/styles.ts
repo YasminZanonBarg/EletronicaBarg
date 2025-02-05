@@ -1,8 +1,9 @@
 import styled from "styled-components"
 
 export const HeaderContainer = styled.span`
-    height: 10%;
     display: flex;
     justify-content: center; 
-    border: 2px solid black;
+    padding: 1rem;
+    gap: 0.25rem;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 `
