@@ -11,5 +11,19 @@ export const Content = styled.div`
   flex-direction: column; 
 `;
 
+export const FirstContent = styled.div`
+  padding: 2rem 3rem 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
 
+  .left-content {
+    display: flex;
+    gap: 2rem;
+    flex: 1; 
+
+    h1 {
+       white-space: nowrap;
+    }
+  }
+`;
 

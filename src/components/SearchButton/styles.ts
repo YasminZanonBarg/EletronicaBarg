@@ -1,23 +1,38 @@
 import styled from "styled-components"
 
-export const SearchButtonContainer = styled('md-filled-tonal-button')`
-  --md-filled-tonal-button-container-shape: 30px; 
-  --md-sys-color-secondary-container: ${(props) => props.theme['green-500']};
-  --md-sys-color-on-secondary-container: ${(props) => props.theme['green-200']};
+export const SearchFormContainer = styled.form`
 
-  width: 100%;
-  max-width: 7rem; 
-  height: 3rem; 
-  background: ${(props) => props.theme['green-200']};;
-
-  
-  span {
+  div {
     display: flex;
-    align-items: center;
-    white-space: nowrap;
   }
 
-  md-icon {
-    font-size: 1.2rem;
-  } 
-`;
+  input {
+    width: 20rem;
+    height: 3rem;
+    padding: 1rem 2rem;
+
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    border: 0;
+
+    background: ${(props) => props.theme['green-300']};
+    color: ${(props) => props.theme['gray-600']};
+    font-size: 1rem;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  button {
+    width: 4rem;
+
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    border: 0;
+
+    background: ${(props) => props.theme['green-300']};
+    color: ${(props) => props.theme['gray-600']};
+  }
+`
+

@@ -3,13 +3,13 @@ import styled from "styled-components"
 export const IncludeButtonContainer = styled('md-outlined-button')`
   --md-filled-button-container-shape: 30px; 
   --md-sys-color-primary: ${(props) => props.theme['green-500']};
-  --md-sys-color-on-primary: ${(props) => props.theme['green-200']};
+  --md-sys-color-on-primary: ${(props) => props.theme['green-300']};
 
   width: 100%;
   max-width: 7rem; 
   height: 3rem; 
-  background: ${(props) => props.theme['green-200']};;
-
+  background: ${(props) => props.theme['green-300']};
+  font-size: 1rem;
   
   span {
     display: flex;
@@ -18,6 +18,6 @@ export const IncludeButtonContainer = styled('md-outlined-button')`
   }
 
   md-icon {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   } 
 `;
