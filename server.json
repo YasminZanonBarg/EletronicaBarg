@@ -1,0 +1,53 @@
+{
+    "ServiceOrder": [
+      {
+        "id": 1,
+        "so_number": 12345,
+        "state": "Aguardando orçamento",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 2,
+        "so_number": 12345,
+        "state": "Pendente aprovação",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 3,
+        "so_number": 12345,
+        "state": "Conserto negado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 4,
+        "so_number": 12345,
+        "state": "Pendente Conserto",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 5,
+        "so_number": 12345,
+        "state": "Consertado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 6,
+        "so_number": 12345,
+        "state": "Consertado e retirado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 7,
+        "so_number": 12345,
+        "state": "Não consertado e retirado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      }
+    ]
+  }
