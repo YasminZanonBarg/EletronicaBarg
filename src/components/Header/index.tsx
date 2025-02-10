@@ -5,8 +5,9 @@ import { HeaderContainer } from "./styles"
 export function Header() {
     return(
         <HeaderContainer>
-            <img src={IconEletronicaBarg} alt="Ícone Eletrônica Barg" />
+            <img src={IconEletronicaBarg} alt="Ícone Eletrônica Barg" width={26}/>
             <img src={NameEletronicaBarg} alt="Nome Eletrônica Barg" />
         </HeaderContainer>
     )
 }
+
