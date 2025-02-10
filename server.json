@@ -48,6 +48,55 @@
         "state": "Não consertado e retirado",
         "client": "Anna Souza Dalagnolli",
         "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 8,
+        "so_number": 12345,
+        "state": "Aguardando orçamento",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 9,
+        "so_number": 12345,
+        "state": "Pendente aprovação",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 10,
+        "so_number": 12345,
+        "state": "Conserto negado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 11,
+        "so_number": 12345,
+        "state": "Pendente Conserto",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 12,
+        "so_number": 12345,
+        "state": "Consertado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 13,
+        "so_number": 12345,
+        "state": "Consertado e retirado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
+      },
+      {
+        "id": 14,
+        "so_number": 12345,
+        "state": "Não consertado e retirado",
+        "client": "Anna Souza Dalagnolli",
+        "createdAt": "2025-01-16T12:50:31.397Z"
       }
     ]
   }

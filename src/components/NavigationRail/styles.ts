@@ -1,14 +1,25 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
 export const RailContainer = styled.nav`
-  width: 80px;
-  height: 100vh;
+  position: fixed;
+  width: 4vw; /* Reduz a largura com base no tamanho da tela */
+  height: 100vh; /* Altura do container ajustada para 100% da altura da tela */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 1rem;
   background-color: ${(props) => props.theme['white']};
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease, height 0.3s ease;
+
+  /* Media queries para telas pequenas */
+  @media (max-width: 768px) {
+    width: 10vw;  /* Aumenta a largura para telas menores */
+  }
+
+  @media (max-width: 480px) {
+    width: 15vw;  /* Aumenta ainda mais para telas muito pequenas */
+  }
 `;
 
 export const NavItem = styled.button<{ active: boolean }>`
@@ -19,8 +30,8 @@ export const NavItem = styled.button<{ active: boolean }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60px; /* Define uma largura fixa */
-  height: 70px; /* Define uma altura fixa */
+  width: 60px; /* Largura fixa, mas pode ser ajustada para 'vw' se necessário */
+  height: 70px; /* Altura fixa */
   padding: 10px;
   margin: 10px 0;
   border-radius: 12px;
@@ -43,9 +54,20 @@ export const NavItem = styled.button<{ active: boolean }>`
   .label {
     font-size: 12px;
     margin-top: 5px;
-    white-space: nowrap; /* Impede que o texto quebre */
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+
+  /* Media queries para ajustar tamanho em telas menores */
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 60px;
+  }
+
+  @media (max-width: 480px) {
+    width: 45px;
+    height: 55px;
   }
 `;
 
@@ -54,7 +76,7 @@ export const LogoutButton = styled.button`
   border: none;
   cursor: pointer;
   position: absolute;
-  bottom: 20px; /* Mantém fixo na parte inferior */
+  bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,5 +86,14 @@ export const LogoutButton = styled.button`
 
   &:hover {
     background: #EDF5E9;
+  }
+
+  /* Ajustes para telas menores */
+  @media (max-width: 768px) {
+    bottom: 10px;
+  }
+
+  @media (max-width: 480px) {
+    bottom: 5px;
   }
 `;

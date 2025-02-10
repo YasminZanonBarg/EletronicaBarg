@@ -2,20 +2,37 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;  // Altera para coluna, para evitar sobreposição
   height: 100vh; 
+`;
+
+export const Navbar = styled.div`
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;  // Garante que a navbar fique sempre no topo
 `;
 
 export const Content = styled.div`
   flex: 1; 
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+  overflow-y: auto;
+
+  main {
+    margin-left: 5rem;
+    margin-top: 5rem;
+    padding-top: 3rem;  // Garante que o conteúdo não fique colado ao topo após o header
+  }
 `;
 
 export const FirstContent = styled.div`
   padding: 2rem 3rem 1.5rem 3rem;
   display: flex;
   justify-content: space-between;
-
+  
   .left-content {
     display: flex;
     gap: 2rem;
@@ -25,11 +42,20 @@ export const FirstContent = styled.div`
        white-space: nowrap;
     }
   }
+
+  @media (max-width: 768px) {
+    padding: 1rem; // Menos padding em telas menores
+    flex-direction: column; // Empilhar os itens em telas menores
+  }
 `;
 
 export const TableContainer = styled.div`
   overflow-x: auto; /* Adiciona a rolagem horizontal quando necessário */
   margin: 2rem 3rem; /* Espaçamento ao redor da tabela */
+
+  @media (max-width: 768px) {
+    margin: 1rem;  // Menos margem em telas menores
+  }
 `;
 
 export const ServiceOrderTable = styled.table`
@@ -63,5 +89,9 @@ export const ServiceOrderTable = styled.table`
     background: none;
     border: none;
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem; // Reduz o tamanho da fonte em telas menores
   }
 `;
