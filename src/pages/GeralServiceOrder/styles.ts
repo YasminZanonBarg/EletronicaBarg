@@ -23,8 +23,7 @@ export const Content = styled.div`
 
   main {
     margin-left: 5rem;
-    margin-top: 5rem;
-    padding-top: 3rem;  // Garante que o conteúdo não fique colado ao topo após o header
+    margin-top: 4.5rem;
   }
 `;
 

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const RailContainer = styled.nav`
   position: fixed;
-  width: 4vw; /* Reduz a largura com base no tamanho da tela */
-  height: 100vh; /* Altura do container ajustada para 100% da altura da tela */
+  width: 6vw; 
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,8 +30,8 @@ export const NavItem = styled.button<{ active: boolean }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60px; /* Largura fixa, mas pode ser ajustada para 'vw' se necessário */
-  height: 70px; /* Altura fixa */
+  width: 60px; 
+  height: 70px; 
   padding: 10px;
   margin: 10px 0;
   border-radius: 12px;
