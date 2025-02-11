@@ -60,7 +60,7 @@ export const OutlinedTextFieldStyled = styled('md-outlined-text-field')<{
 export const FilledButtonStyled = styled('md-filled-button')`
   --md-filled-button-container-shape: 30px; 
   --md-sys-color-primary: ${(props) => props.theme['green-500']};
-  --md-sys-color-on-primary: ${(props) => props.theme['green-200']};
+  --md-sys-color-on-primary: ${(props) => props.theme['green-100']};
   --md-filled-button-label-text-color: ${(props) => props.theme['white']};	
 
   width: 100%;

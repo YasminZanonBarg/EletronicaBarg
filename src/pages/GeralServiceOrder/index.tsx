@@ -37,16 +37,16 @@ export function GeralServiceOrder() {
             <ServiceOrderTable>
               <thead>
                   <tr>
-                    <th width="15%"></th>
-                    <th width="15%">Número O.S.</th>
-                    <th width="15%">
+                    <th style={{ width: '15%' }}></th>
+                    <th style={{ width: '15%' }}>Número O.S.</th>
+                    <th style={{ width: '15%' }}>
                       <div className="entrada">
                         Entrada
                         <md-icon>arrow_drop_down</md-icon>
                       </div>
                     </th>
-                    <th width="27.5%">Situação</th>
-                    <th width="27.5%">Cliente</th>
+                    <th style={{ width: '27.5%' }}>Situação</th>
+                    <th style={{ width: '27.5%' }}>Cliente</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,7 +68,11 @@ export function GeralServiceOrder() {
                                 </td>
                                 <td width="15%">{serviceOrder.so_number}</td>
                                 <td width="15%">{dataFormatter.format( new Date (serviceOrder.createdAt))}</td>
-                                <td width="27,5%">{serviceOrder.state}</td>
+                                <td width="27,5%">
+                                  <em>
+                                    {serviceOrder.state}
+                                  </em>
+                                </td>
                                 <td width="27,5%">{serviceOrder.client}</td>
                             </tr>
                         )

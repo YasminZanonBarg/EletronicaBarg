@@ -51,7 +51,8 @@ export const FirstContent = styled.div`
 export const TableContainer = styled.div`
   overflow-x: auto; /* Adiciona a rolagem horizontal quando necessário */
   margin: 2rem 3rem; /* Espaçamento ao redor da tabela */
-
+  color: ${(props) => props.theme["gray-600"]};
+  
   @media (max-width: 768px) {
     margin: 1rem;  // Menos margem em telas menores
   }

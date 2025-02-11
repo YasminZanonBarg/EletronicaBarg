@@ -24,7 +24,7 @@ export const RailContainer = styled.nav`
 
 export const NavItem = styled.button<{ active: boolean }>`
   background: ${(props) => (props.active ? "#D6DFD1" : "transparent")};
-  color: ${(props) => (props.active ? "#072100" : "#333")};
+  color: ${(props) => props.theme["gray-600"]};
   border: none;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@ export const NavItem = styled.button<{ active: boolean }>`
   transition: background 0.3s ease, color 0.3s ease;
 
   &:hover {
-    background: #EDF5E9;
+    background: ${(props) => props.theme["green-200"]};
   }
 
   .icon {
@@ -85,7 +85,7 @@ export const LogoutButton = styled.button`
   transition: background 0.3s ease;
 
   &:hover {
-    background: #EDF5E9;
+    background: ${(props) => props.theme["green-200"]};
   }
 
   /* Ajustes para telas menores */
