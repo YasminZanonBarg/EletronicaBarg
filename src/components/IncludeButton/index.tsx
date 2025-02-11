@@ -6,7 +6,7 @@ import { IncludeButtonContainer } from "./styles"
 
 export function IncludeButton() {
     return(
-        <IncludeButtonContainer>
+        <IncludeButtonContainer href="http://localhost:5173/RegisterServiceOrder">
             <span>
                 <md-icon>add</md-icon>
                 Incluir

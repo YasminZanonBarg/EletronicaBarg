@@ -11,8 +11,8 @@ interface NavItemProps {
 
 const navItems: NavItemProps[] = [
   { icon: "draft_orders", label: "O.S.", path:"http://localhost:5173/GeralServiceOrder" },
-  { icon: "account_circle", label: "Clientes", path:"http://localhost:5173" },
-  { icon: "analytics", label: "Relatório", path:"http://localhost:5173" },
+  { icon: "account_circle", label: "Clientes", path:"http://localhost:5173/GeralClient" },
+  { icon: "analytics", label: "Relatório", path:"http://localhost:5173/Report" },
   { icon: "description", label: "Docs", path:"http://localhost:5173" },
 ];
 
@@ -43,3 +43,4 @@ export function NavigationRail() {
       </RailContainer>
     );
   }
+  
