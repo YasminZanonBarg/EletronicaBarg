@@ -24,7 +24,7 @@
       {
         "id": 4,
         "so_number": 12345,
-        "state": "Pendente Conserto",
+        "state": "Pendente conserto",
         "client": "Anna Souza Dalagnolli",
         "createdAt": "2025-01-16T12:50:31.397Z"
       },
@@ -45,7 +45,7 @@
       {
         "id": 7,
         "so_number": 12345,
-        "state": "Não consertado e retirado",
+        "state": "Sem conserto e retirado",
         "client": "Anna Souza Dalagnolli",
         "createdAt": "2025-01-16T12:50:31.397Z"
       },
@@ -73,7 +73,7 @@
       {
         "id": 11,
         "so_number": 12345,
-        "state": "Pendente Conserto",
+        "state": "Pendente conserto",
         "client": "Anna Souza Dalagnolli",
         "createdAt": "2025-01-16T12:50:31.397Z"
       },
@@ -94,7 +94,7 @@
       {
         "id": 14,
         "so_number": 12345,
-        "state": "Não consertado e retirado",
+        "state": "Sem conserto e retirado",
         "client": "Anna Souza Dalagnolli",
         "createdAt": "2025-01-16T12:50:31.397Z"
       }

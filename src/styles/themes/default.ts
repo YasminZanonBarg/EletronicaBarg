@@ -24,7 +24,7 @@ export const defaultTheme = {
     'conserto-negado': '#CC6060',
     'pendente-conserto': '#EBD726',
     'consertado': '#A9C997',
-    'consertado-retirado': '#EFFAE8',
+    'consertado-retirado': '#4C6C3A',
     'sem-conserto-retirado': '#C24242',
   } as const
   

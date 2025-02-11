@@ -4,7 +4,7 @@ import { Header } from "../../components/Header"
 import { IncludeButton } from "../../components/IncludeButton"
 import { SearchButton } from "../../components/SearchButton"
 import { FilterSituationSelect } from "../../components/FilterSituationSelect"
-import { Container, Content, FirstContent, ServiceOrderTable, TableContainer } from "./styles"
+import { Container, Content, FirstContent, ServiceOrderTable, TableContainer, Status } from "./styles"
 import { ServiceOrderContext } from "../../contexts/ServiceOrderContext"
 import { useContext } from "react"
 
@@ -68,10 +68,28 @@ export function GeralServiceOrder() {
                                 </td>
                                 <td width="15%">{serviceOrder.so_number}</td>
                                 <td width="15%">{dataFormatter.format( new Date (serviceOrder.createdAt))}</td>
-                                <td width="27,5%">
-                                  <em>
-                                    {serviceOrder.state}
-                                  </em>
+                                <td width="27.5%">
+                                  {serviceOrder.state === 'Aguardando orçamento' && (
+                                    <Status statusColor="aguardando_orcamento">Aguardando orçamento</Status>
+                                  )}
+                                  {serviceOrder.state === 'Pendente aprovação' && (
+                                    <Status statusColor="pendente_aprovacao">Pendente aprovação</Status>
+                                  )}
+                                  {serviceOrder.state === 'Conserto negado' && (
+                                    <Status statusColor="conserto_negado">Conserto negado</Status>
+                                  )}
+                                  {serviceOrder.state === 'Pendente conserto' && (
+                                    <Status statusColor="pendente_conserto">Pendente conserto</Status>
+                                  )}
+                                  {serviceOrder.state === 'Consertado' && (
+                                    <Status statusColor="consertado">Consertado</Status>
+                                  )}
+                                  {serviceOrder.state === 'Consertado e retirado' && (
+                                    <Status statusColor="consertado_retirado">Consertado e retirado</Status>
+                                  )}
+                                  {serviceOrder.state === 'Sem conserto e retirado' && (
+                                    <Status statusColor="sem_conserto_retirado">Sem conserto e retirado</Status>
+                                  )}
                                 </td>
                                 <td width="27,5%">{serviceOrder.client}</td>
                             </tr>
@@ -87,3 +105,7 @@ export function GeralServiceOrder() {
     </Container>
   );
 }
+
+
+
+

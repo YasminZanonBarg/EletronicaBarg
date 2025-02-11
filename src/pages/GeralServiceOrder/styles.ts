@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;  // Altera para coluna, para evitar sobreposição
+  flex-direction: column;  
   height: 100vh; 
 `;
 
@@ -12,7 +12,7 @@ export const Navbar = styled.div`
   padding: 1rem;
   position: sticky;
   top: 0;
-  z-index: 10;  // Garante que a navbar fique sempre no topo
+  z-index: 10;  
 `;
 
 export const Content = styled.div`
@@ -43,18 +43,18 @@ export const FirstContent = styled.div`
   }
 
   @media (max-width: 768px) {
-    padding: 1rem; // Menos padding em telas menores
-    flex-direction: column; // Empilhar os itens em telas menores
+    padding: 1rem; 
+    flex-direction: column; 
   }
 `;
 
 export const TableContainer = styled.div`
-  overflow-x: auto; /* Adiciona a rolagem horizontal quando necessário */
-  margin: 2rem 3rem; /* Espaçamento ao redor da tabela */
+  overflow-x: auto; 
+  margin: 2rem 3rem; 
   color: ${(props) => props.theme["gray-600"]};
   
   @media (max-width: 768px) {
-    margin: 1rem;  // Menos margem em telas menores
+    margin: 1rem;  
   }
 `;
 
@@ -75,6 +75,11 @@ export const ServiceOrderTable = styled.table`
       display: flex;
       align-items: center; /* Alinha verticalmente */
     }
+
+    md-icon {
+      color: ${(props) => props.theme["gray-600"]};
+      margin-right: 0.5rem;
+    }
   }
 
   tbody tr:last-child td {
@@ -92,6 +97,34 @@ export const ServiceOrderTable = styled.table`
   }
 
   @media (max-width: 768px) {
-    font-size: 0.875rem; // Reduz o tamanho da fonte em telas menores
+    font-size: 0.875rem; 
   }
 `;
+
+const STATUS_COLOR = {
+  aguardando_orcamento: 'aguardando-orcamento',
+  pendente_aprovacao: 'pendente-aprovacao',
+  conserto_negado: 'conserto-negado',
+  pendente_conserto: 'pendente-conserto',
+  consertado: 'consertado',
+  consertado_retirado: 'consertado-retirado',
+  sem_conserto_retirado: 'sem-conserto-retirado',
+} as const  
+
+interface StatusProps {
+  statusColor: keyof typeof STATUS_COLOR
+}
+
+export const Status = styled.span<StatusProps>`
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem;
+
+  &::before {
+      content: '';
+      width: 1rem;
+      height: 1rem;
+      border-radius: 9999px;
+      background: ${(props) => props.theme[STATUS_COLOR[props.statusColor]]};
+  }
+`
