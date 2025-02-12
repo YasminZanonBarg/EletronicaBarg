@@ -84,6 +84,11 @@ export const LogoutButton = styled.button`
   border-radius: 50%;
   transition: background 0.3s ease;
 
+  md-icon {
+      color: ${(props) => props.theme["gray-600"]};
+      margin-right: 0.5rem;
+    }
+
   &:hover {
     background: ${(props) => props.theme["green-200"]};
   }

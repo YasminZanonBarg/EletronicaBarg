@@ -76,9 +76,13 @@ export const ServiceOrderTable = styled.table`
       align-items: center; /* Alinha verticalmente */
     }
 
-    md-icon {
-      color: ${(props) => props.theme["gray-600"]};
-      margin-right: 0.5rem;
+    .butons {
+      margin-left: 1rem;
+
+      md-icon {
+        color: ${(props) => props.theme["gray-600"]};
+        margin-right: 0.5rem;
+    }
     }
   }
 

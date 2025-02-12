@@ -4,13 +4,22 @@ import { Header } from "../../components/Header"
 import { IncludeButton } from "../../components/IncludeButton"
 import { SearchButton } from "../../components/SearchButton"
 import { FilterSituationSelect } from "../../components/FilterSituationSelect"
+import { Pagination } from "../../components/Pagination"
 import { Container, Content, FirstContent, ServiceOrderTable, TableContainer, Status } from "./styles"
 import { ServiceOrderContext } from "../../contexts/ServiceOrderContext"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 
 export function GeralServiceOrder() {
-  const { serviceOrder } = useContext(ServiceOrderContext)
-  const dataFormatter = new Intl.DateTimeFormat('pt-BR')
+  const { serviceOrder } = useContext(ServiceOrderContext);
+  const dataFormatter = new Intl.DateTimeFormat('pt-BR');
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10
+  const totalPages = Math.ceil(serviceOrder.length / itemsPerPage)
+
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = serviceOrder.slice(indexOfFirstItem, indexOfLastItem)
 
   return (
     <Container>
@@ -50,11 +59,11 @@ export function GeralServiceOrder() {
                   </tr>
                 </thead>
                 <tbody>
-                    {serviceOrder.map(serviceOrder => {
+                    {currentItems.map(serviceOrder => {
                         return (
                             <tr key={serviceOrder.id}>
                                 <td width="15%">
-                                  <span>
+                                  <span className="butons">
                                     <button type="submit">
                                       <md-icon>edit</md-icon>
                                     </button>
@@ -97,10 +106,14 @@ export function GeralServiceOrder() {
                     })}
                 </tbody>
               </ServiceOrderTable>
+              
+              <Pagination 
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
             </TableContainer>
-
         </main>
-
       </Content>
     </Container>
   );
