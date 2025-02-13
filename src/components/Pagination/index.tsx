@@ -10,11 +10,13 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
   return (
     <PaginationContainer>
       <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
-        Anterior
+        <md-icon>chevron_left</md-icon>
       </button>
+      
       <span>{currentPage} de {totalPages}</span>
+
       <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-        Próximo
+        <md-icon>chevron_right</md-icon>
       </button>
     </PaginationContainer>
   );

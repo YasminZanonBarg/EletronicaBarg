@@ -39,80 +39,80 @@ export function GeralServiceOrder() {
               <SearchButton placeholder="Nº O.S. ou nome do cliente" />
             </div>
           </FirstContent>
-        
+
           <FilterSituationSelect />
 
           <TableContainer>
             <ServiceOrderTable>
               <thead>
-                  <tr>
-                    <th style={{ width: '15%' }}></th>
-                    <th style={{ width: '15%' }}>Número O.S.</th>
-                    <th style={{ width: '15%' }}>
-                      <div className="entrada">
-                        Entrada
-                        <md-icon>arrow_drop_down</md-icon>
-                      </div>
-                    </th>
-                    <th style={{ width: '27.5%' }}>Situação</th>
-                    <th style={{ width: '27.5%' }}>Cliente</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {currentItems.map(serviceOrder => {
-                        return (
-                            <tr key={serviceOrder.id}>
-                                <td width="15%">
-                                  <span className="butons">
-                                    <button type="submit">
-                                      <md-icon>edit</md-icon>
-                                    </button>
-                                    <button type="submit">
-                                      <md-icon>delete</md-icon>
-                                    </button>
-                                    <button type="submit">
-                                      <md-icon>error</md-icon>
-                                    </button>
-                                  </span>
-                                </td>
-                                <td width="15%">{serviceOrder.so_number}</td>
-                                <td width="15%">{dataFormatter.format( new Date (serviceOrder.createdAt))}</td>
-                                <td width="27.5%">
-                                  {serviceOrder.state === 'Aguardando orçamento' && (
-                                    <Status statusColor="aguardando_orcamento">Aguardando orçamento</Status>
-                                  )}
-                                  {serviceOrder.state === 'Pendente aprovação' && (
-                                    <Status statusColor="pendente_aprovacao">Pendente aprovação</Status>
-                                  )}
-                                  {serviceOrder.state === 'Conserto negado' && (
-                                    <Status statusColor="conserto_negado">Conserto negado</Status>
-                                  )}
-                                  {serviceOrder.state === 'Pendente conserto' && (
-                                    <Status statusColor="pendente_conserto">Pendente conserto</Status>
-                                  )}
-                                  {serviceOrder.state === 'Consertado' && (
-                                    <Status statusColor="consertado">Consertado</Status>
-                                  )}
-                                  {serviceOrder.state === 'Consertado e retirado' && (
-                                    <Status statusColor="consertado_retirado">Consertado e retirado</Status>
-                                  )}
-                                  {serviceOrder.state === 'Sem conserto e retirado' && (
-                                    <Status statusColor="sem_conserto_retirado">Sem conserto e retirado</Status>
-                                  )}
-                                </td>
-                                <td width="27,5%">{serviceOrder.client}</td>
-                            </tr>
-                        )
-                    })}
-                </tbody>
-              </ServiceOrderTable>
-              
-              <Pagination 
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={setCurrentPage}
-              />
-            </TableContainer>
+                <tr>
+                  <th style={{ width: '15%' }}></th>
+                  <th style={{ width: '15%' }}>Número O.S.</th>
+                  <th style={{ width: '15%' }}>
+                    <div className="entrada">
+                      Entrada
+                      <md-icon>arrow_drop_down</md-icon>
+                    </div>
+                  </th>
+                  <th style={{ width: '27.5%' }}>Situação</th>
+                  <th style={{ width: '27.5%' }}>Cliente</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentItems.map(serviceOrder => {
+                  return (
+                    <tr key={serviceOrder.id}>
+                      <td width="15%">
+                        <span className="butons">
+                          <button type="submit">
+                            <md-icon>edit</md-icon>
+                          </button>
+                          <button type="submit">
+                            <md-icon>delete</md-icon>
+                          </button>
+                          <button type="submit">
+                            <md-icon>error</md-icon>
+                          </button>
+                        </span>
+                      </td>
+                      <td width="15%">{serviceOrder.so_number}</td>
+                      <td width="15%">{dataFormatter.format(new Date(serviceOrder.createdAt))}</td>
+                      <td width="27.5%">
+                        {serviceOrder.state === 'Aguardando orçamento' && (
+                          <Status statusColor="aguardando_orcamento">Aguardando orçamento</Status>
+                        )}
+                        {serviceOrder.state === 'Pendente aprovação' && (
+                          <Status statusColor="pendente_aprovacao">Pendente aprovação</Status>
+                        )}
+                        {serviceOrder.state === 'Conserto negado' && (
+                          <Status statusColor="conserto_negado">Conserto negado</Status>
+                        )}
+                        {serviceOrder.state === 'Pendente conserto' && (
+                          <Status statusColor="pendente_conserto">Pendente conserto</Status>
+                        )}
+                        {serviceOrder.state === 'Consertado' && (
+                          <Status statusColor="consertado">Consertado</Status>
+                        )}
+                        {serviceOrder.state === 'Consertado e retirado' && (
+                          <Status statusColor="consertado_retirado">Consertado e retirado</Status>
+                        )}
+                        {serviceOrder.state === 'Sem conserto e retirado' && (
+                          <Status statusColor="sem_conserto_retirado">Sem conserto e retirado</Status>
+                        )}
+                      </td>
+                      <td width="27,5%">{serviceOrder.client}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </ServiceOrderTable>
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+            />
+          </TableContainer>
         </main>
       </Content>
     </Container>

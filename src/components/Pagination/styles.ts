@@ -8,18 +8,25 @@ export const PaginationContainer = styled.div`
   margin-top: 20px;
 
   button {
-    background: ${(props) => props.theme["green-500"]};
-    color: white;
+    background: none;
     border: none;
-    padding: 0.5rem 0.75rem;
     cursor: pointer;
-    border-radius: 20px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    color: ${(props) => props.theme["green-500"]};
     transition: 0.3s;
-    font-size: 0.875rem;
 
     &:disabled {
-      background: #ccc;
+      color: #ccc;
       cursor: not-allowed;
+    }
+
+    md-icon {
+      font-size: 24px;
     }
   }
 `;
+
