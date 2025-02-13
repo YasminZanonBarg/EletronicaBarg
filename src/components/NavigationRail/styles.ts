@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const RailContainer = styled.nav`
   position: fixed;
-  width: 6vw; 
+  width: 5vw; 
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,13 +12,13 @@ export const RailContainer = styled.nav`
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: width 0.3s ease, height 0.3s ease;
 
-  /* Media queries para telas pequenas */
   @media (max-width: 768px) {
-    width: 10vw;  /* Aumenta a largura para telas menores */
+    width: 10vw;  
+    max-width: 5vw;
   }
 
   @media (max-width: 480px) {
-    width: 15vw;  /* Aumenta ainda mais para telas muito pequenas */
+    width: 15vw;  
   }
 `;
 
@@ -61,8 +61,8 @@ export const NavItem = styled.button<{ active: boolean }>`
 
   /* Media queries para ajustar tamanho em telas menores */
   @media (max-width: 768px) {
-    width: 50px;
-    height: 60px;
+    width: 3.125rem;
+    height: 3.75rem;
   }
 
   @media (max-width: 480px) {

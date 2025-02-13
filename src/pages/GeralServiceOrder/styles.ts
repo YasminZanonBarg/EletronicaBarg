@@ -21,6 +21,10 @@ export const Content = styled.div`
   flex-direction: column;
   overflow-y: auto;
 
+  @media (min-width: 1920px) {
+    margin-left: 1rem;  
+  }
+
   main {
     margin-left: 5rem;
     margin-top: 4.5rem;

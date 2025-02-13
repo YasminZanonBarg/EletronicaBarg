@@ -43,24 +43,24 @@ export function GeralClient() {
             <ClientTable>
               <thead>
                 <tr>
-                  <th style={{ width: '15%' }}></th>
-                  <th style={{ width: '25%' }}>Nome</th>
-                  <th style={{ width: '15%' }}>
+                  <th style={{ width: '16%' }}></th>
+                  <th style={{ width: '20%' }}>Nome</th>
+                  <th style={{ width: '16%' }}>
                     <div className="entrada">
                       Cadastro
                       <md-icon>arrow_drop_down</md-icon>
                     </div>
                   </th>
-                  <th style={{ width: '15%' }}>CPF</th>
-                  <th style={{ width: '15%' }}>Celular</th>
-                  <th style={{ width: '15%' }}>Telefone</th>
+                  <th style={{ width: '16%' }}>CPF</th>
+                  <th style={{ width: '16%' }}>Celular</th>
+                  <th style={{ width: '16%' }}>Telefone</th>
                 </tr>
               </thead>
               <tbody>
                 {currentItems.map(client => {
                   return (
                     <tr key={client.id}>
-                      <td width="15%">
+                      <td width="16%">
                         <span className="butons">
                           <button type="submit">
                             <md-icon>edit</md-icon>
@@ -69,15 +69,15 @@ export function GeralClient() {
                             <md-icon>delete</md-icon>
                           </button>
                           <button type="submit">
-                            <md-icon>error</md-icon>
+                            <md-icon>warning</md-icon>
                           </button>
                         </span>
                       </td>
-                      <td width="15%">{client.name}</td>
-                      <td width="25%">{dataFormatter.format(new Date(client.registerAt))}</td>
-                      <td width="15%">{client.cpf}</td>
-                      <td width="15%">{client.cellphone_number}</td>
-                      <td width="15%">{client.telephone_number}</td>
+                      <td width="20%">{client.name}</td>
+                      <td width="16%">{dataFormatter.format(new Date(client.registerAt))}</td>
+                      <td width="16%">{client.cpf}</td>
+                      <td width="16%">{client.cellphone_number}</td>
+                      <td width="16%">{client.telephone_number}</td>
                     </tr>
                   )
                 })}
@@ -91,7 +91,6 @@ export function GeralClient() {
             />
           </TableContainer>
         </main>
-
       </Content>
     </Container>
   );
