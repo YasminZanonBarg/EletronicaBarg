@@ -26,12 +26,12 @@ export const NavItem = styled.button<{ active: boolean }>`
   background: ${(props) => (props.active ? "#D6DFD1" : "transparent")};
   color: ${(props) => props.theme["gray-600"]};
   border: none;
-  display: flex;
+  display: flex; 
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 60px; 
-  height: 70px; 
+  width: 90%; 
+  height: 10vh; 
   padding: 10px;
   margin: 10px 0;
   border-radius: 12px;
@@ -59,16 +59,6 @@ export const NavItem = styled.button<{ active: boolean }>`
     text-overflow: ellipsis;
   }
 
-  /* Media queries para ajustar tamanho em telas menores */
-  @media (max-width: 768px) {
-    width: 3.125rem;
-    height: 3.75rem;
-  }
-
-  @media (max-width: 480px) {
-    width: 45px;
-    height: 55px;
-  }
 `;
 
 export const LogoutButton = styled.button`

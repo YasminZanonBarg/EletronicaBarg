@@ -95,7 +95,7 @@ export const ServiceOrderTable = styled.table`
   }
 
   th {
-    font-weight: bold;
+    font-weight: normal;
   }
 
   button {

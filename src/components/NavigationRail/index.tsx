@@ -17,30 +17,36 @@ const navItems: NavItemProps[] = [
 ];
 
 export function NavigationRail() {
-    const [activeIndex, setActiveIndex] = useState(0);
-  
-    const handleNavClick = useCallback((index: number) => {
-      setActiveIndex(index);
-      window.location.href = navItems[index].path;
-    }, []);
-  
-    return (
-      <RailContainer>
-        {navItems.map((item, index) => (
-          <NavItem
-            key={item.path}
-            active={index === activeIndex}
-            onClick={() => handleNavClick(index)}
-          >
-            <md-icon className="icon">{item.icon}</md-icon>
-            <span className="label">{item.label}</span>
-          </NavItem>
-        ))}
+  const currentPath = window.location.pathname;
+  const getActiveIndex = () => {
+    return navItems.findIndex((item) => new URL(item.path).pathname === currentPath);
+  };
 
-        <LogoutButton>
-            <md-icon className="icon">logout</md-icon>
-        </LogoutButton>
-      </RailContainer>
-    );
-  }
+  const [activeIndex, setActiveIndex] = useState(getActiveIndex());
+
+  const handleNavClick = useCallback((index: number) => {
+    setActiveIndex(index);
+    window.location.href = navItems[index].path;
+  }, []);
+
+  return (
+    <RailContainer>
+      {navItems.map((item, index) => (
+        <NavItem
+          key={item.path}
+          active={index === activeIndex}
+          onClick={() => handleNavClick(index)}
+        >
+          <md-icon className="icon">{item.icon}</md-icon>
+          <span className="label">{item.label}</span>
+        </NavItem>
+      ))}
+
+      <LogoutButton>
+        <md-icon className="icon">logout</md-icon>
+      </LogoutButton>
+    </RailContainer>
+  );
+}
+
   
