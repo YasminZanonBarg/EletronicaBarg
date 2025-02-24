@@ -30,8 +30,8 @@ export const NavItem = styled.button<{ active: boolean }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 90%; 
-  height: 10vh; 
+  width: 85%; 
+  height: 12vh; 
   padding: 10px;
   margin: 10px 0;
   border-radius: 12px;
