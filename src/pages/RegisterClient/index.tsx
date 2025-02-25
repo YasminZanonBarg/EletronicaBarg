@@ -48,9 +48,19 @@ export function RegisterClient() {
                 </div>
 
                 <div className="third_part">
-                  <TextField id="filiation" label="Filiação" multiline />
-                  <TextField id="observation" label="Observação" multiline />
+                  <div className="filiation">
+                    <TextField id="filiation" label="Filiação" multiline />
+                  </div>
+
+                  <div className="observation">
+                    <TextField id="observation" label="Observação" multiline />
+                    <button className="clear-button">
+                      <md-icon>error</md-icon>
+                    </button>
+                  </div>
                 </div>
+
+
               </PersonalDataSection>
             </form>
           </SectionWrapper>

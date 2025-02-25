@@ -65,21 +65,40 @@ export const PersonalDataSection = styled.div`
       }
   }
 
-  .third_part{
-      margin-top:1rem;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 2.5rem;
-      width: 100%;
-
-      div {
-        flex: 1; 
-        max-width: 50%;
-        min-width: 10%;
-      }
+  .third_part {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    width: 100%;
   }
+
+  .filiation,
+  .observation {
+    flex: 1; 
+    min-width: 250px; 
+    max-width: 49%; 
+  }
+
+  .observation {
+    position: relative;
+  }
+
+  .clear-button {
+    all: unset;
+    position: absolute;
+    bottom: 0.3125rem;
+    right: 1rem;
+    cursor: pointer;
+    color: ${(props) => props.theme['gray-500']};
+
+    &:hover {
+      color: ${(props) => props.theme['gray-600']};
+    }
+  }
+
 `;
 
 export const AddressSection = styled.div`
