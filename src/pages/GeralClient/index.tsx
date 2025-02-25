@@ -31,7 +31,7 @@ export function GeralClient() {
           <FirstContent>
             <div className="left-content">
               <h1>Clientes</h1>
-              <IncludeButton />
+              <IncludeButton url="http://localhost:5173/GeralClient/Register" />
             </div>
 
             <div>
