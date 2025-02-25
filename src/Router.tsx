@@ -12,9 +12,9 @@ export function Router() {
             <Route>
                 <Route path='/' element={<Login />} />
                 <Route path='/GeralServiceOrder' element={<GeralServiceOrder />} />
-                <Route path='/RegisterServiceOrder' element={<RegisterServiceOrder />} />
+                <Route path='/GeralServiceOrder/Register' element={<RegisterServiceOrder />} />
                 <Route path='/GeralClient' element={<GeralClient />} />
-                <Route path='/RegisterClient' element={<RegisterClient />} />
+                <Route path='/GeralClient/Register' element={<RegisterClient />} />
                 <Route path='/Report' element={<Report />} />
             </Route>
         </Routes>

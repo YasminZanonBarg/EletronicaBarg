@@ -43,7 +43,6 @@ export const DefaultSection = styled.div`
   }
 `;
 
-
 export const EquipmentSection = styled.div`
   .first_part{
     margin-top:2rem;
@@ -144,6 +143,10 @@ export const AccompanimentSection = styled.div`
       width: 78%;
     }
 
+    .pre_budget {
+      width: 15%;
+    }
+
     button {
       all: unset;
       cursor: pointer;
@@ -168,25 +171,26 @@ export const AccompanimentSection = styled.div`
     width: 100%;
 
     .first_half {
-      div {
-        flex: 1; 
-        width: 100%;
+      display: flex;
+      gap: 1rem;
+      width: 78%;
+
+      .text-field-wrapper {
+        flex: 1;
+        min-width: 0; 
       }
     }
 
-
     .second_half {
-      margin-left: 1.5rem;
+      margin-left: 3.5rem;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      width: 15%;
 
-      #workforce {
-        width: 25vh;
-      }
-
-      #parts {
-        width: 25vh;
+      .text-field-wrapper {
+        flex: 1;
+        min-width: 0; 
       }
 
       p {
@@ -198,13 +202,33 @@ export const AccompanimentSection = styled.div`
   }
 `;
 
-export const SectionButtons = styled.span`
+export const SectionButtons = styled.div`
   display: flex;
-  
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem; 
+
+  .right_buttons {
+    display: flex;
+    gap: 1rem;
+    margin-right: 1.5rem;
+  }
+
+  .left_buttons {
+    margin-left: 1.5rem;
+  }
+
   .simple_button {
     all: unset;
     color: ${(props) => props.theme['gray-500']};
     font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      color: ${(props) => props.theme['gray-600']};
+    }
   }
 
   .save_button {
@@ -219,4 +243,4 @@ export const SectionButtons = styled.span`
       background-color: ${(props) => props.theme['green-400']};
     }
   }
-`
+`;

@@ -110,12 +110,20 @@ export function RegisterServiceOrder() {
 
                 <div className="second_part">
                   <div className="first_half">
-                    <TextField id="reasons" label="Motivos" multiline />
-                    <TextField id="notes" label="Notas" multiline />
+                    <div className="text-field-wrapper">
+                      <TextField id="reasons" label="Motivos" multiline />
+                    </div>
+                    <div className="text-field-wrapper">
+                      <TextField id="notes" label="Notas" multiline />
+                    </div>
                   </div>
                   <div className="second_half">
-                    <TextField id="workforce" type="number" label="Mão de Obra"/>
-                    <TextField id="parts" type="number" label="Peças"/>
+                    <div className="text-field-wrapper">
+                      <TextField id="workforce" type="number" label="Mão de Obra"/>
+                    </div>
+                    <div className="text-field-wrapper">
+                      <TextField id="parts" type="number" label="Peças"/>
+                    </div>
                     <p>Total: R$ 200,00</p>
                   </div>
                 </div>
@@ -124,10 +132,10 @@ export function RegisterServiceOrder() {
           </SectionWrapper>
 
           <SectionButtons>
-            <div>
+            <div className="left_buttons">
               <button className="simple_button">Imprimir</button>
             </div>
-            <div>
+            <div className="right_buttons">
               <button className="save_button">Salvar</button>
               <button className="simple_button">Sair</button>
             </div>
