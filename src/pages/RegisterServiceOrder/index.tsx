@@ -5,7 +5,7 @@ import IconWhatsApp from '../../assets/whatsapp_icon.png'
 import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
 import { TextField } from "../../components/TextField"
-
+import SearchClient from "../../components/SearchClientModal"
 
 import { AccompanimentSection, ClientSection, Container, Content, DefaultSection, EditIcon, EquipmentSection, InputWrapper, SectionButtons, StyledTextField, WhatsAppButton } from "./styles"
 import { SectionWrapper } from "../../components/SectionWrapper";
@@ -13,6 +13,7 @@ import { SectionWrapper } from "../../components/SectionWrapper";
 export function RegisterServiceOrder() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0]; 
+
 
   return (
     <Container>
@@ -78,9 +79,7 @@ export function RegisterServiceOrder() {
             <ClientSection>
               <InputWrapper>
                 <StyledTextField id="equipment" defaultValue="Pesquise um cliente" />
-                <EditIcon>
-                  <md-icon>edit</md-icon>
-                </EditIcon>
+                <SearchClient />
               </InputWrapper>
 
               <WhatsAppButton>

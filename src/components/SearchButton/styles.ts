@@ -1,15 +1,23 @@
 import styled from "styled-components"
 
-export const SearchFormContainer = styled.form`
-
+export const SearchFormContainer = styled.form<{ size: 'small' | 'medium' | 'large' }>`
   div {
     display: flex;
   }
 
   input {
-    width: 20rem;
-    height: 3rem;
-    padding: 1rem 2rem;
+    width: ${(props) => {
+      switch (props.size) {
+        case 'small':
+          return '15rem';
+        case 'large':
+          return '30rem';
+        default:
+          return '20rem'; // Tamanho padrão (medium)
+      }
+    }};
+    height: ${(props) => (props.size === 'small' ? '2.5rem' : '3rem')};
+    padding: ${(props) => (props.size === 'small' ? '0.5rem 1rem' : '1rem 2rem')};
 
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -17,7 +25,7 @@ export const SearchFormContainer = styled.form`
 
     background: ${(props) => props.theme['green-300']};
     color: ${(props) => props.theme['gray-600']};
-    font-size: 1rem;
+    font-size: ${(props) => (props.size === 'small' ? '0.875rem' : '1rem')};
   }
 
   input:focus {
@@ -25,7 +33,7 @@ export const SearchFormContainer = styled.form`
   }
 
   button {
-    width: 4rem;
+    width: ${(props) => (props.size === 'small' ? '3rem' : '4rem')};
 
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
@@ -35,4 +43,3 @@ export const SearchFormContainer = styled.form`
     color: ${(props) => props.theme['gray-600']};
   }
 `
-

@@ -1,5 +1,6 @@
 import styled from "styled-components"
 
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;  
@@ -99,7 +100,8 @@ export const StyledTextField = styled.input`
   color: ${(props) => props.theme['gray-600']};
 `;
 
-export const EditIcon = styled.span`
+export const EditIcon = styled.button`
+  all: unset;
   position: absolute;
   right: 10px;
   top: 50%;
