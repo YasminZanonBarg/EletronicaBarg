@@ -97,9 +97,15 @@ export function RegisterServiceOrder() {
             <form>
               <AccompanimentSection>
                 <div className="first_part">
-                  <TextField id="location" label="Localização Aparelho" />
-                  <md-icon>stars</md-icon>
-                  <TextField id="pre_budget" type="number" label="Pré-Orçamento" />
+                  <div className="location">
+                    <TextField id="location" label="Localização Aparelho"/>
+                  </div>
+                  <button>
+                    <md-icon>stars</md-icon>
+                  </button>
+                  <div className="pre_budget">
+                    <TextField id="pre_budget" type="number" label="Pré-Orçamento" />
+                  </div>
                 </div>
 
                 <div className="second_part">

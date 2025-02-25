@@ -85,7 +85,6 @@ export const ClientSection = styled.div`
   padding: 2rem 0 0.5rem 0; 
 `;
 
-
 export const InputWrapper = styled.div`
   position: relative;
   flex: 1;
@@ -136,44 +135,45 @@ export const AccompanimentSection = styled.div`
     margin-top: 2rem;
     margin-bottom: 1rem;
     display: flex;
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
+    width: 100%;
 
-    #location {
-      width: 80vh;
+    .location {
+      width: 78%;
     }
 
-    #pre_budget {
-      width: 25vh;
-    }
+    button {
+      all: unset;
+      cursor: pointer;
 
-    md-icon {
-      margin-right: 1rem;      
-      margin-bottom: 0.5rem;
-      align-self: flex-end; 
-      color: ${(props) => props.theme['gray-500']}; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      margin-right: 1rem;
 
+      md-icon {
+        color: ${(props) => props.theme['gray-500']}; 
+      }
     }
   }
 
   .second_part {
     display: flex;
-    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 1rem;
+    width: 100%;
 
     .first_half {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap; 
-
-      #reasons {
-        width: 41vh;
-      }
-
-      #notes {
-        width: 41vh;
+      div {
+        flex: 1; 
+        width: 100%;
       }
     }
+
 
     .second_half {
       margin-left: 1.5rem;
