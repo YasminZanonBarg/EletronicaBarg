@@ -7,8 +7,8 @@ type TextFieldProps = {
   type?: string;
   defaultValue?: string;
   editable?: boolean;
-  multiline?: boolean;  // Adicionamos essa propriedade
-  rows?: number; // Define a altura inicial do textarea
+  multiline?: boolean; 
+  rows?: number; 
 };
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -18,7 +18,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   defaultValue = '',
   editable = true,
   multiline = false,
-  rows = 6, // Define um padrão para altura
+  rows = 6, 
 }) => (
   <InputContainer>
     <Label htmlFor={id}>{label}</Label>

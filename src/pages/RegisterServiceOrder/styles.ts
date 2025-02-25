@@ -238,6 +238,7 @@ export const SectionButtons = styled.div`
     border-radius: 30px;
     padding: 0.5rem 1.5rem;
     cursor: pointer;
+    font-weight: bold;
 
     &:hover {
       background-color: ${(props) => props.theme['green-400']};

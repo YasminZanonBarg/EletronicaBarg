@@ -14,7 +14,6 @@ export function RegisterServiceOrder() {
   const today = new Date();
   const formattedDate = today.toISOString().split('T')[0]; 
 
-
   return (
     <Container>
       <NavigationRail />
@@ -23,7 +22,6 @@ export function RegisterServiceOrder() {
         <Header />
 
         <main>
-
           <form>
             <DefaultSection>
               <TextField
@@ -140,7 +138,6 @@ export function RegisterServiceOrder() {
               <button className="simple_button">Sair</button>
             </div>
           </SectionButtons>
-
         </main>
 
       </Content>
