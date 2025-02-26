@@ -28,7 +28,7 @@ export const ModalContent = styled(Dialog.Content)`
   background-color: ${(props) => props.theme['white']};
   border-radius: 8px;
   z-index: 1001;
-  width: 17%;
+  width: 20%;
   overflow: hidden; 
 `;
 

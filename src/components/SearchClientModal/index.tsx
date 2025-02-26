@@ -4,6 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { TextField } from "../TextField";
 import { SectionWrapper } from "../SectionWrapper";
 import { SearchButton } from "../../components/SearchButton";
+import { SaveButton } from "../../components/SaveButton"
 
 import { ModalOverlay, ModalContent, EditIcon, ModalCloseIcon, SaveButtonWrapper, SearchContainer } from "./styles";
 import { AddressSection, ContactSection, PersonalDataSection } from "../../pages/RegisterClient/styles";
@@ -115,7 +116,7 @@ export default function SearchClient() {
 
           {/* Adicionando o botão de salvar no final */}
           <SaveButtonWrapper>
-            <button className="save_button">Salvar</button>
+            <SaveButton />
           </SaveButtonWrapper>
         </ModalContent>
       </Dialog.Portal>

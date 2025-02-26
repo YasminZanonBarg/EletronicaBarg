@@ -6,6 +6,7 @@ import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
 import { TextField } from "../../components/TextField"
 import { SectionWrapper } from "../../components/SectionWrapper"
+import { SaveButton } from "../../components/SaveButton"
 import SearchClient from "../../components/SearchClientModal"
 import CanceledClientModal from "../../components/CanceledClientModal"
 
@@ -134,7 +135,7 @@ export function RegisterServiceOrder() {
               <button className="simple_button">Imprimir</button>
             </div>
             <div className="right_buttons">
-              <button className="save_button">Salvar</button>
+              <SaveButton />
               <CanceledClientModal />
             </div>
           </SectionButtons>
