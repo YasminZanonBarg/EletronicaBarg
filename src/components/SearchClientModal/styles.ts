@@ -14,11 +14,9 @@ export const EditIcon = styled.button`
 
 export const ModalOverlay = styled(Dialog.Overlay)`
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
   z-index: 1000;
 `;
 
@@ -29,12 +27,32 @@ export const ModalContent = styled(Dialog.Content)`
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 16px;
   z-index: 1001;
-  max-width: 1000px; 
+  max-width: 1000px;
   width: 100%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  max-height: 80vh;
   overflow-y: auto;
+  padding-right: 18px; /* Garante que o scroll não sobreponha o botão */
+  scrollbar-gutter: stable;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(100, 100, 100, 0.3);
+    border-radius: 10px;
+    transition: background 0.3s;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 100, 100, 0.6);
+  }
 `;
 
 export const ModalCloseIcon = styled.button`
@@ -43,12 +61,13 @@ export const ModalCloseIcon = styled.button`
   right: 1rem;
   background: none;
   border: none;
-  color: ${(props) => props.theme['gray-500']};
+  color: ${(props) => props.theme["gray-500"]};
   cursor: pointer;
   font-size: 1.5rem;
+  z-index: 10; /* Mantém o botão acima do scroll */
 
   &:hover {
-    color: ${(props) => props.theme['gray-700']};
+    color: ${(props) => props.theme["gray-700"]};
   }
 `;
 
