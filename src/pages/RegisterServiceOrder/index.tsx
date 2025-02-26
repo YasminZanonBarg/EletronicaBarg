@@ -1,14 +1,15 @@
 import "@material/web/icon/icon.js"
-import '@material/web/textfield/outlined-text-field.js';
+import '@material/web/textfield/outlined-text-field.js'
 
 import IconWhatsApp from '../../assets/whatsapp_icon.png'
 import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
 import { TextField } from "../../components/TextField"
+import { SectionWrapper } from "../../components/SectionWrapper"
 import SearchClient from "../../components/SearchClientModal"
+import CanceledClientModal from "../../components/CanceledClientModal"
 
-import { AccompanimentSection, ClientSection, Container, Content, DefaultSection, EditIcon, EquipmentSection, InputWrapper, SectionButtons, StyledTextField, WhatsAppButton } from "./styles"
-import { SectionWrapper } from "../../components/SectionWrapper";
+import { AccompanimentSection, ClientSection, Container, Content, DefaultSection, EquipmentSection, InputWrapper, SectionButtons, StyledTextField, WhatsAppButton } from "./styles"
 
 export function RegisterServiceOrder() {
   const today = new Date();
@@ -134,7 +135,7 @@ export function RegisterServiceOrder() {
             </div>
             <div className="right_buttons">
               <button className="save_button">Salvar</button>
-              <button className="simple_button">Sair</button>
+              <CanceledClientModal />
             </div>
           </SectionButtons>
         </main>

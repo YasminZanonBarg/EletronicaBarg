@@ -8,6 +8,8 @@ import { Pagination } from "../../components/Pagination"
 import { Container, Content, FirstContent, ServiceOrderTable, TableContainer, Status } from "./styles"
 import { ServiceOrderContext } from "../../contexts/ServiceOrderContext"
 import { useContext, useState } from "react"
+import DeleteItemServiceOrderModal from "../../components/DeleteItemServiceOrderModal"
+
 
 export function GeralServiceOrder() {
   const { serviceOrder } = useContext(ServiceOrderContext);
@@ -67,9 +69,7 @@ export function GeralServiceOrder() {
                           <button type="submit">
                             <md-icon>edit</md-icon>
                           </button>
-                          <button type="submit">
-                            <md-icon>delete</md-icon>
-                          </button>
+                          <DeleteItemServiceOrderModal />
                           <button type="submit">
                             <md-icon>error</md-icon>
                           </button>

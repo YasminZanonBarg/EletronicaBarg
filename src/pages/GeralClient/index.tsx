@@ -7,6 +7,8 @@ import { SearchButton } from "../../components/SearchButton";
 import { useContext, useState } from "react";
 import { ClientContext } from "../../contexts/ClientContext";
 import { Pagination } from "../../components/Pagination";
+import DeleteItemClientModal from "../../components/DeleteItemClientModal"
+
 
 export function GeralClient() {
   const { client } = useContext(ClientContext);
@@ -65,9 +67,7 @@ export function GeralClient() {
                           <button type="submit">
                             <md-icon>edit</md-icon>
                           </button>
-                          <button type="submit">
-                            <md-icon>delete</md-icon>
-                          </button>
+                          <DeleteItemClientModal />
                           <button type="submit">
                             <md-icon>warning</md-icon>
                           </button>

@@ -100,17 +100,6 @@ export const StyledTextField = styled.input`
   color: ${(props) => props.theme['gray-600']};
 `;
 
-export const EditIcon = styled.button`
-  all: unset;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: ${(props) => props.theme['gray-500']};
-  font-size: 1.2rem;
-`;
-
 export const WhatsAppButton = styled.button`
   display: flex;
   align-items: center;

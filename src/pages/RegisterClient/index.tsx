@@ -3,9 +3,10 @@ import "@material/web/icon/icon.js"
 import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
 import { SectionWrapper } from "../../components/SectionWrapper";
+import { TextField } from "../../components/TextField";
+import CanceledClientModal from "../../components/CanceledClientModal"
 
 import { AddressSection, ContactSection, Container, Content, PersonalDataSection, SectionButtons } from "./styles"
-import { TextField } from "../../components/TextField";
 
 export function RegisterClient() {
   const today = new Date();
@@ -111,7 +112,7 @@ export function RegisterClient() {
           <SectionButtons>
             <div className="right_buttons">
               <button className="save_button">Salvar</button>
-              <button className="simple_button">Sair</button>
+              <CanceledClientModal />
             </div>
           </SectionButtons>
         </main>
