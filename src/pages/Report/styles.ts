@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;  // Altera para coluna, para evitar sobreposição
+  flex-direction: column;  
   height: 100vh; 
 `;
 
@@ -12,7 +12,7 @@ export const Navbar = styled.div`
   padding: 1rem;
   position: sticky;
   top: 0;
-  z-index: 10;  // Garante que a navbar fique sempre no topo
+  z-index: 10;  
 `;
 
 export const Content = styled.div`
@@ -22,7 +22,45 @@ export const Content = styled.div`
   overflow-y: auto;
 
   main {
-    margin-left: 5rem;
-    margin-top: 4.5rem;
+    margin-left: 8rem;
+    margin-top: 6rem;
+    margin-right: 3.5rem;
+  }
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; 
+
+  span {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center; 
+  }
+
+  span div {
+    display: flex;
+    align-items: center;
+  }
+
+  .save_button {
+    margin-top: 1rem;
+  }
+`;
+
+export const ReportContainer = styled.div`
+  margin-top: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+
+  div {
+    flex: 1 1 calc(25% - 1.5rem);
+    min-width: 20%;
+    min-height: 100%;
   }
 `;
