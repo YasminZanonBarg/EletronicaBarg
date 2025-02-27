@@ -51,16 +51,34 @@ export const HeaderContainer = styled.div`
   }
 `;
 
-export const ReportContainer = styled.div`
+export const ReportSmallContainers = styled.div`
   margin-top: 3rem;
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start; 
+  padding: 1rem; 
 
-  div {
-    flex: 1 1 calc(25% - 1.5rem);
-    min-width: 20%;
-    min-height: 100%;
+  > div {
+    flex: 1 1 20vw;
+    width: 20vw;
+    height: 25vh;
+  }
+`;
+
+export const ReportBigContainers = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  align-items: flex-start; 
+  padding: 1rem; 
+
+  > div {
+    flex: 1 1 20vw;
+    width: 20vw;
+    height: 40vh;
   }
 `;

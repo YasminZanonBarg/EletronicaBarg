@@ -6,7 +6,7 @@ import { SaveButton } from "../../components/SaveButton"
 import { TextField } from "../../components/TextField"
 import { ReportChart } from "../../components/ReportChart"
 
-import { Container, Content, HeaderContainer, ReportContainer } from "./styles"
+import { Container, Content, HeaderContainer, ReportBigContainers, ReportSmallContainers } from "./styles"
 
 export function Report() {
 
@@ -36,15 +36,13 @@ export function Report() {
             </span>
           </HeaderContainer>
 
-          <ReportContainer>
-            
+          <ReportSmallContainers>
             <ReportChart title="Total de Consertos">
               <p>21</p>
             </ReportChart>
 
             <ReportChart title="Consertos Aprovados">
               <p>18</p>
-              <p>Taxa de 85,71%</p>
             </ReportChart>
 
             <ReportChart title="Valor Total">
@@ -54,7 +52,15 @@ export function Report() {
             <ReportChart title="Valor Médio por Conserto">
               <p>R$ 300</p>
             </ReportChart>
-          </ReportContainer>
+          </ReportSmallContainers>
+
+          <ReportBigContainers>
+            <ReportChart title="Consertos x Problemas">
+            </ReportChart>
+
+            <ReportChart title="Ordem de Serviço Abertas por Dia">
+            </ReportChart>
+          </ReportBigContainers>
 
           
         </main>
