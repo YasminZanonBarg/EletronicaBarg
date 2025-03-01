@@ -61,8 +61,8 @@ export const ReportSmallContainers = styled.div`
   padding: 1rem; 
 
   > div {
-    flex: 1 1 20vw;
-    width: 20vw;
+    flex: 1 1 15vw;
+    width: 15vw;
     height: 25vh;
   }
 `;
