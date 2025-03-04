@@ -38,12 +38,10 @@ export const HeaderContainer = styled.div`
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    align-items: center; 
   }
 
   span div {
     display: flex;
-    align-items: center;
   }
 
   .save_button {
