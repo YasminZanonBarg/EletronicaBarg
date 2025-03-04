@@ -25,7 +25,7 @@ export const ModalContent = styled(Dialog.Content)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
+  background-color: ${(props) => props.theme['white']};
   padding: 2rem;
   border-radius: 16px;
   z-index: 1001;
