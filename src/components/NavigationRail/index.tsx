@@ -63,9 +63,18 @@ export function NavigationRail() {
         </NavItem>
       ))}
 
-      <LogoutButton>
+      <LogoutButton
+        onClick={() => {
+          const confirmLogout = window.confirm("Tem certeza que deseja sair?"); 
+          if (confirmLogout) {
+            localStorage.removeItem("token"); 
+            navigate("/"); 
+          }
+        }}
+      >
         <md-icon className="icon">logout</md-icon>
       </LogoutButton>
+
     </RailContainer>
   );
 }
