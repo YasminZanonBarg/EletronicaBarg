@@ -5,7 +5,6 @@ import { Router } from './Router'
 import { GlobalStyle } from "./styles/global"
 import { defaultTheme } from "./styles/themes/default"
 
-import { ServiceOrderProvider } from "./contexts/ServiceOrderContext"
 import { ClientProvider } from "./contexts/ClientContext"
 
 
@@ -14,11 +13,9 @@ export function App() {
     <ThemeProvider theme={defaultTheme}>
 
       <BrowserRouter>
-        <ServiceOrderProvider>
           <ClientProvider>
             <Router />
           </ClientProvider>
-        </ServiceOrderProvider>
       </BrowserRouter>
       
       <GlobalStyle />

@@ -5,23 +5,34 @@ import { IncludeButton } from "../../components/IncludeButton"
 import { SearchButton } from "../../components/SearchButton"
 import { FilterSituationSelect } from "../../components/FilterSituationSelect"
 import { Pagination } from "../../components/Pagination"
-import { Container, Content, FirstContent, ServiceOrderTable, TableContainer, Status } from "./styles"
-import { ServiceOrderContext } from "../../contexts/ServiceOrderContext"
-import { useContext, useState } from "react"
 import DeleteItemServiceOrderModal from "../../components/DeleteItemServiceOrderModal"
+import { Container, Content, FirstContent, ServiceOrderTable, TableContainer, Status } from "./styles"
+import { useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { getServiceOrder } from "../../http/get-service-order"
 
 
 export function GeralServiceOrder() {
-  const { serviceOrder } = useContext(ServiceOrderContext);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const {data} = useQuery({
+    queryKey: ['get-service-order'],
+    queryFn: getServiceOrder,
+    staleTime: 1000 * 60, // 60 segundos
+  })
+
+  if (!data) {
+    return null
+  }
+
   const dataFormatter = new Intl.DateTimeFormat('pt-BR');
 
-  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10
-  const totalPages = Math.ceil(serviceOrder.length / itemsPerPage)
+  const totalPages = Math.ceil(data.length / itemsPerPage)
 
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = serviceOrder.slice(indexOfFirstItem, indexOfLastItem)
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem)
 
   return (
     <Container>
@@ -75,32 +86,32 @@ export function GeralServiceOrder() {
                           </button>
                         </span>
                       </td>
-                      <td width="15%">{serviceOrder.so_number}</td>
-                      <td width="15%">{dataFormatter.format(new Date(serviceOrder.createdAt))}</td>
+                      <td width="15%">{serviceOrder.numeroOrdemServico}</td>
+                      <td width="15%">{dataFormatter.format(new Date(serviceOrder.dataEntrada))}</td>
                       <td width="27.5%">
-                        {serviceOrder.state === 'Aguardando orçamento' && (
+                        {serviceOrder.situacao === 'Aguardando orçamento' && (
                           <Status statusColor="aguardando_orcamento">Aguardando orçamento</Status>
                         )}
-                        {serviceOrder.state === 'Pendente aprovação' && (
+                        {serviceOrder.situacao === 'Pendente aprovação' && (
                           <Status statusColor="pendente_aprovacao">Pendente aprovação</Status>
                         )}
-                        {serviceOrder.state === 'Conserto negado' && (
+                        {serviceOrder.situacao === 'Conserto negado' && (
                           <Status statusColor="conserto_negado">Conserto negado</Status>
                         )}
-                        {serviceOrder.state === 'Pendente conserto' && (
+                        {serviceOrder.situacao === 'Pendente conserto' && (
                           <Status statusColor="pendente_conserto">Pendente conserto</Status>
                         )}
-                        {serviceOrder.state === 'Consertado' && (
+                        {serviceOrder.situacao === 'Consertado' && (
                           <Status statusColor="consertado">Consertado</Status>
                         )}
-                        {serviceOrder.state === 'Consertado e retirado' && (
+                        {serviceOrder.situacao === 'Consertado e retirado' && (
                           <Status statusColor="consertado_retirado">Consertado e retirado</Status>
                         )}
-                        {serviceOrder.state === 'Sem conserto e retirado' && (
+                        {serviceOrder.situacao === 'Sem conserto e retirado' && (
                           <Status statusColor="sem_conserto_retirado">Sem conserto e retirado</Status>
                         )}
                       </td>
-                      <td width="27,5%">{serviceOrder.client}</td>
+                      <td width="27,5%">{serviceOrder.nomeCliente}</td>
                     </tr>
                   )
                 })}
