@@ -8,12 +8,13 @@ import { Pagination } from "../../components/Pagination"
 import DeleteItemServiceOrderModal from "../../components/DeleteItemServiceOrderModal"
 import { Container, Content, FirstContent, ServiceOrderTable, TableContainer, Status } from "./styles"
 import { useState } from "react"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getServiceOrder } from "../../http/get-service-order"
 
 
 export function GeralServiceOrder() {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
+  const queryClient = useQueryClient()
 
   const {data} = useQuery({
     queryKey: ['get-service-order'],
@@ -33,6 +34,10 @@ export function GeralServiceOrder() {
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem)
+
+  const handleDeleteSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ['get-service-order'] })    
+  }
 
   return (
     <Container>
@@ -80,7 +85,10 @@ export function GeralServiceOrder() {
                           <button type="submit">
                             <md-icon>edit</md-icon>
                           </button>
-                          <DeleteItemServiceOrderModal />
+                          <DeleteItemServiceOrderModal
+                            serviceOrderId={serviceOrder.id}
+                            onDeleteSuccess={handleDeleteSuccess}
+                          />
                           <button type="submit">
                             <md-icon>error</md-icon>
                           </button>
@@ -129,7 +137,3 @@ export function GeralServiceOrder() {
     </Container>
   );
 }
-
-
-
-
