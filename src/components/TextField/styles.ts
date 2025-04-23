@@ -31,7 +31,18 @@ export const StyledTextarea = styled.textarea`
   border-radius: 15px;
   font-size: 0.875rem;
   resize: vertical; 
-  min-height: 5vh; 
-  max-height: 12vh; 
   background-color: transparent;
+  padding: 1vh; 
+  min-height: 6vh; 
+  height: auto;
+`;
+
+
+export const StyledSelect = styled.select`
+  padding: 1vh;
+  font-size: 0.875rem;
+  border: 1px solid ${(props) => props.theme['gray-400']};
+  border-radius: 15px;
+  background-color: transparent;
+  width: 100%;
 `;

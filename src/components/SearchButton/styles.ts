@@ -7,15 +7,15 @@ export const SearchFormContainer = styled.form<{ size: 'small' | 'medium' | 'lar
 
   input {
     width: ${(props) => {
-      switch (props.size) {
-        case 'small':
-          return '15rem';
-        case 'large':
-          return '30rem';
-        default:
-          return '20rem'; // Tamanho padrão (medium)
-      }
-    }};
+    switch (props.size) {
+      case 'small':
+        return '15rem';
+      case 'large':
+        return '30rem';
+      default:
+        return '20rem'; // Tamanho padrão (medium)
+    }
+  }};
     height: ${(props) => (props.size === 'small' ? '2.5rem' : '3rem')};
     padding: ${(props) => (props.size === 'small' ? '0.5rem 1rem' : '1rem 2rem')};
 
@@ -41,5 +41,17 @@ export const SearchFormContainer = styled.form<{ size: 'small' | 'medium' | 'lar
 
     background: ${(props) => props.theme['green-300']};
     color: ${(props) => props.theme['gray-600']};
+
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  button md-icon {
+    color: ${(props) => props.theme['gray-600']};
+    transition: color 0.2s ease;
+  }
+
+  button:hover md-icon {
+    color: ${(props) => props.theme['gray-500']}; // Cor mais clara ao hover
   }
 `

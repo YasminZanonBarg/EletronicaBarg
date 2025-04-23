@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputContainer, StyledInput, StyledTextarea, Label } from './styles';
+import { InputContainer, StyledInput, StyledTextarea, Label, StyledSelect } from './styles';
 
 type TextFieldProps = {
   id: string;
@@ -9,6 +9,10 @@ type TextFieldProps = {
   editable?: boolean;
   multiline?: boolean; 
   rows?: number; 
+  select?: boolean;  // Nova prop para controlar o select
+  options?: string[]; // Opções para o select
+  value?: string;
+  onChange?: (value: string) => void;
 };
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -19,10 +23,27 @@ export const TextField: React.FC<TextFieldProps> = ({
   editable = true,
   multiline = false,
   rows = 6, 
+  select = false,  // Verifica se o campo é de seleção
+  options = [],
+  value = '',
+  onChange,
 }) => (
   <InputContainer>
     <Label htmlFor={id}>{label}</Label>
-    {multiline ? (
+    {select ? (
+      <StyledSelect
+        id={id}
+        value={value}
+        onChange={(e) => onChange && onChange(e.target.value)}
+        disabled={!editable}  // Desabilita se não for editável
+      >
+        {options.map((option, index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+      </StyledSelect>
+    ) : multiline ? (
       <StyledTextarea
         id={id}
         defaultValue={defaultValue}

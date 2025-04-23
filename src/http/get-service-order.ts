@@ -1,11 +1,11 @@
-type ServiceOrderResponse = {
+export type ServiceOrderResponse = {
   id: string
   idCliente: string
   nomeCliente: string,
   numeroOrdemServico: number
   dataEntrada: Date
   dataSaida?: Date | null
-  situacao: 'Aguardando orçamento' | 'Pendente aprovação' | 'Conserto negado' | 'Pendente conserto' | 'Consertado' | 'Consertado e retirado' | 'Sem conserto e retirado'
+  situacao: string
   aparelho: string
   marca: string
   modelo: string

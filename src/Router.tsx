@@ -4,6 +4,7 @@ import { GeralServiceOrder } from './pages/GeralServiceOrder'
 import { RegisterServiceOrder } from './pages/RegisterServiceOrder'
 import { GeralClient } from './pages/GeralClient'
 import { RegisterClient } from './pages/RegisterClient'
+import { EditServiceOrder } from './pages/EditServiceOrder'
 import { Report } from './pages/Report'
 
 export function Router() {
@@ -13,6 +14,7 @@ export function Router() {
                 <Route path='/' element={<Login />} />
                 <Route path='/GeralServiceOrder' element={<GeralServiceOrder />} />
                 <Route path='/GeralServiceOrder/Register' element={<RegisterServiceOrder />} />
+                <Route path='/GeralServiceOrder/Edit' element={<EditServiceOrder />} />
                 <Route path='/GeralClient' element={<GeralClient />} />
                 <Route path='/GeralClient/Register' element={<RegisterClient />} />
                 <Route path='/Report' element={<Report />} />
