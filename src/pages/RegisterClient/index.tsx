@@ -10,8 +10,8 @@ import CanceledClientModal from "../../components/CanceledClientModal"
 import { AddressSection, ContactSection, Container, Content, PersonalDataSection, SectionButtons } from "./styles"
 
 export function RegisterClient() {
-  const today = new Date();
-  const formattedDate = today.toISOString().split('T')[0]; 
+  const today = new Date()
+  const formattedDate = today.toISOString().split('T')[0]
 
   return (
     <Container>
