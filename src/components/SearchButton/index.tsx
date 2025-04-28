@@ -1,20 +1,21 @@
-import "@material/web/icon/icon.js"
-import { useState, FormEvent } from "react"
-import { SearchFormContainer } from './styles'
+import "@material/web/icon/icon.js";
+import { useState, FormEvent } from "react";
+import { SearchFormContainer } from './styles';
 
 interface SearchButtonProps {
   placeholder: string;
   size?: 'small' | 'medium' | 'large';
   onSearch: (value: string) => void;
+  defaultValue?: string; // Nova propriedade para valor inicial
 }
 
-export function SearchButton({ placeholder, size = 'medium', onSearch }: SearchButtonProps) {
-  const [searchValue, setSearchValue] = useState("")
+export function SearchButton({ placeholder, size = 'medium', onSearch, defaultValue = "" }: SearchButtonProps) {
+  const [searchValue, setSearchValue] = useState(defaultValue); // Inicializa com o valor padrão
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    onSearch(searchValue.trim()) // Envia o valor para o componente pai
-  }
+    e.preventDefault();
+    onSearch(searchValue.trim()); // Envia o valor para o componente pai
+  };
 
   return (
     <SearchFormContainer onSubmit={handleSubmit} size={size}>
@@ -28,7 +29,7 @@ export function SearchButton({ placeholder, size = 'medium', onSearch }: SearchB
         <button type="submit">
           <md-icon>search</md-icon>
         </button>
-      </div>  
+      </div>
     </SearchFormContainer>
-  )
+  );
 }

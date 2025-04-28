@@ -1,9 +1,14 @@
 import { SaveButtonStyle } from './styles'
 
-export function SaveButton() {
+type SaveButtonProps = {
+  type?: "button" | "submit"; // Adiciona o tipo de botão
+  onClick?: () => void;
+};
+
+export function SaveButton({ type = "button", onClick }: SaveButtonProps) {
   return (
-    <SaveButtonStyle>
-        Salvar
+    <SaveButtonStyle type={type} onClick={onClick}>
+      Salvar
     </SaveButtonStyle>
-  )
+  );
 }

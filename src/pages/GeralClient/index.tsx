@@ -1,26 +1,29 @@
+// Comentado o codigo, pois retirei o contexto do cliente que estava gerando erro
+
 import "@material/web/icon/icon.js"
 import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
-import { Container, Content, FirstContent, ClientTable, TableContainer } from "./styles"
+import { Container, Content, FirstContent } from "./styles"
+// ClientTable, TableContainer (adicionar no estilo a cima)
 import { IncludeButton } from "../../components/IncludeButton";
-import { SearchButton } from "../../components/SearchButton";
-import { useContext, useState } from "react";
-import { ClientContext } from "../../contexts/ClientContext";
-import { Pagination } from "../../components/Pagination";
-import DeleteItemClientModal from "../../components/DeleteItemClientModal"
+// import { SearchButton } from "../../components/SearchButton";
+// import { useContext, useState } from "react";
+// import { ClientContext } from "../../contexts/ClientContext";
+// import { Pagination } from "../../components/Pagination";
+// import DeleteItemClientModal from "../../components/DeleteItemClientModal"
 
 
 export function GeralClient() {
-  const { client } = useContext(ClientContext);
-  const dataFormatter = new Intl.DateTimeFormat('pt-BR');
+  // const { client } = useContext(ClientContext);
+  // const dataFormatter = new Intl.DateTimeFormat('pt-BR');
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10
-  const totalPages = Math.ceil(client.length / itemsPerPage)
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const itemsPerPage = 10
+  // const totalPages = Math.ceil(client.length / itemsPerPage)
 
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = client.slice(indexOfFirstItem, indexOfLastItem)
+  // const indexOfLastItem = currentPage * itemsPerPage
+  // const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  // const currentItems = client.slice(indexOfFirstItem, indexOfLastItem)
 
   return (
     <Container>
@@ -36,12 +39,12 @@ export function GeralClient() {
               <IncludeButton url="http://localhost:5173/GeralClient/Register" />
             </div>
 
-            <div>
+            {/* <div>
               <SearchButton placeholder="Pesquisar cliente" />
-            </div>
+            </div> */}
           </FirstContent>
 
-          <TableContainer>
+          {/* <TableContainer>
             <ClientTable>
               <thead>
                 <tr>
@@ -89,7 +92,7 @@ export function GeralClient() {
               totalPages={totalPages}
               onPageChange={setCurrentPage}
             />
-          </TableContainer>
+          </TableContainer> */}
         </main>
       </Content>
     </Container>
