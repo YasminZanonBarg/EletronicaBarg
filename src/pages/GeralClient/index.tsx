@@ -1,29 +1,55 @@
-// Comentado o codigo, pois retirei o contexto do cliente que estava gerando erro
-
 import "@material/web/icon/icon.js"
 import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
-import { Container, Content, FirstContent } from "./styles"
-// ClientTable, TableContainer (adicionar no estilo a cima)
-import { IncludeButton } from "../../components/IncludeButton";
-// import { SearchButton } from "../../components/SearchButton";
-// import { useContext, useState } from "react";
-// import { ClientContext } from "../../contexts/ClientContext";
-// import { Pagination } from "../../components/Pagination";
-// import DeleteItemClientModal from "../../components/DeleteItemClientModal"
+import { Container, Content, FirstContent, ClientTable, TableContainer } from "./styles"
+import { IncludeButton } from "../../components/IncludeButton"
+import { SearchButton } from "../../components/SearchButton"
+import { useState } from "react"
+import { Pagination } from "../../components/Pagination"
+import DeleteItemClientModal from "../../components/DeleteItemClientModal"
+
+import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { getClients } from "../../http/get-clients"
+import { useNavigate } from "react-router-dom"
 
 
 export function GeralClient() {
-  // const { client } = useContext(ClientContext);
-  // const dataFormatter = new Intl.DateTimeFormat('pt-BR');
+  const navigate = useNavigate() 
+  const queryClient = useQueryClient()
 
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const itemsPerPage = 10
-  // const totalPages = Math.ceil(client.length / itemsPerPage)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [searchTerm, setSearchTerm] = useState("")
 
-  // const indexOfLastItem = currentPage * itemsPerPage
-  // const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  // const currentItems = client.slice(indexOfFirstItem, indexOfLastItem)
+  const { data } = useQuery({
+      queryKey: ['clients'],
+      queryFn: getClients,
+      staleTime: 1000 * 60, 
+  })
+
+  if (!data) return null
+
+  const dataFormatter = new Intl.DateTimeFormat('pt-BR');
+  
+  const filteredClients = data.filter(client => client.cpf.includes(searchTerm));
+
+  const itemsPerPage = 10
+  const totalPages = Math.ceil(filteredClients.length / itemsPerPage)
+
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = filteredClients.slice(indexOfFirstItem, indexOfLastItem)
+
+  const handleSearch = (value: string) => {
+    setSearchTerm(value)
+  }
+
+  const handleEdit = (clientId: string) => {
+    navigate(`/GeralClient/Edit?id=${clientId}`); 
+  }
+
+  const handleDeleteSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["get-service-order"] })
+  }
 
   return (
     <Container>
@@ -39,12 +65,15 @@ export function GeralClient() {
               <IncludeButton url="http://localhost:5173/GeralClient/Register" />
             </div>
 
-            {/* <div>
-              <SearchButton placeholder="Pesquisar cliente" />
-            </div> */}
+            <div>
+              <SearchButton 
+                placeholder="Pesquisar cliente" 
+                onSearch={handleSearch}  
+              />
+            </div>
           </FirstContent>
 
-          {/* <TableContainer>
+          <TableContainer>
             <ClientTable>
               <thead>
                 <tr>
@@ -67,22 +96,28 @@ export function GeralClient() {
                     <tr key={client.id}>
                       <td width="16%">
                         <span className="butons">
-                          <button type="submit">
+                          <button
+                            type="button"
+                            onClick={() => handleEdit(client.id)}
+                          >
                             <md-icon>edit</md-icon>
                           </button>
-                          <DeleteItemClientModal />
+                          <DeleteItemClientModal
+                            clientId={client.id}
+                            onDeleteSuccess={handleDeleteSuccess}
+                          />
                           <button type="submit">
                             <md-icon>warning</md-icon>
                           </button>
                         </span>
                       </td>
-                      <td width="20%">{client.name}</td>
-                      <td width="16%">{dataFormatter.format(new Date(client.registerAt))}</td>
+                      <td width="20%">{client.nomeCompleto}</td>
+                      <td width="16%">{dataFormatter.format(new Date(client.dataCadastro))}</td>
                       <td width="16%">{client.cpf}</td>
-                      <td width="16%">{client.cellphone_number}</td>
-                      <td width="16%">{client.telephone_number}</td>
+                      <td width="16%">{client.telefone1 ?? "-"}</td>
+                      <td width="16%">{client.telefone2 ?? "-"}</td>
                     </tr>
-                  )
+                  );
                 })}
               </tbody>
             </ClientTable>
@@ -92,7 +127,7 @@ export function GeralClient() {
               totalPages={totalPages}
               onPageChange={setCurrentPage}
             />
-          </TableContainer> */}
+          </TableContainer>
         </main>
       </Content>
     </Container>

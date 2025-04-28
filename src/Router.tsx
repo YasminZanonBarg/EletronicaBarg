@@ -2,9 +2,10 @@ import { Routes, Route } from 'react-router-dom'
 import { Login } from './pages/Login'
 import { GeralServiceOrder } from './pages/GeralServiceOrder'
 import { RegisterServiceOrder } from './pages/RegisterServiceOrder'
+import { EditServiceOrder } from './pages/EditServiceOrder'
 import { GeralClient } from './pages/GeralClient'
 import { RegisterClient } from './pages/RegisterClient'
-import { EditServiceOrder } from './pages/EditServiceOrder'
+import { EditClient } from './pages/EditClient'
 import { Report } from './pages/Report'
 
 export function Router() {
@@ -17,6 +18,7 @@ export function Router() {
                 <Route path='/GeralServiceOrder/Edit' element={<EditServiceOrder />} />
                 <Route path='/GeralClient' element={<GeralClient />} />
                 <Route path='/GeralClient/Register' element={<RegisterClient />} />
+                <Route path='/GeralClient/Edit' element={<EditClient />} />
                 <Route path='/Report' element={<Report />} />
             </Route>
         </Routes>
