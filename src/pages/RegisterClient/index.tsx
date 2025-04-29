@@ -9,7 +9,30 @@ import CanceledClientModal from "../../components/CanceledClientModal"
 
 import { AddressSection, ContactSection, Container, Content, PersonalDataSection, SectionButtons } from "./styles"
 
+import { useMutation } from '@tanstack/react-query'
+import { createAndGetCep } from '../../http/create-and-get-cep'
+import { useState } from "react"
+
 export function RegisterClient() {
+  const [cidade, setCidade] = useState('')
+
+  const createCepMutation = useMutation({
+    mutationFn: (codigoCep: string) => createAndGetCep(codigoCep),
+    onSuccess: (data) => {
+      setCidade(data.cidade)
+    },
+    onError: (error) => {
+      console.error('Erro ao buscar CEP', error)
+    }
+  })
+
+  const handleCepEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const cepValue = e.currentTarget.value
+    if (cepValue.length === 8 && e.key === 'Enter') {
+      createCepMutation.mutate(cepValue)
+    }
+  }
+
   const today = new Date()
   const formattedDate = today.toISOString().split('T')[0]
 
@@ -72,10 +95,20 @@ export function RegisterClient() {
               <AddressSection>
                 <div className="first_part">
                   <div className="cep">
-                    <TextField id="cep" label="CEP" type="number"/>
+                    <TextField
+                      id="cep"
+                      label="CEP"
+                      type="number"
+                      onKeyDown={handleCepEnter} 
+                    />
                   </div>
                   <div className="city">
-                    <TextField id="city" label="Cidade" />
+                  <TextField
+                    id="city"
+                    label="Cidade"
+                    defaultValue={cidade}
+                    editable={false} 
+                  />
                   </div>
                   <div className="neighborhood">
                     <TextField id="neighborhood" label="Bairro" />

@@ -7,12 +7,14 @@ type TextFieldProps = {
   type?: string;
   defaultValue?: string;
   editable?: boolean;
-  multiline?: boolean; 
-  rows?: number; 
-  select?: boolean;  // Nova prop para controlar o select
-  options?: string[]; // Opções para o select
+  multiline?: boolean;
+  rows?: number;
+  select?: boolean;
+  options?: string[];
   value?: string;
   onChange?: (value: string) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void; 
 };
 
 export const TextField: React.FC<TextFieldProps> = ({
@@ -22,11 +24,13 @@ export const TextField: React.FC<TextFieldProps> = ({
   defaultValue = '',
   editable = true,
   multiline = false,
-  rows = 6, 
-  select = false,  // Verifica se o campo é de seleção
+  rows = 6,
+  select = false,
   options = [],
   value = '',
   onChange,
+  onBlur,
+  onKeyDown,
 }) => (
   <InputContainer>
     <Label htmlFor={id}>{label}</Label>
@@ -35,7 +39,8 @@ export const TextField: React.FC<TextFieldProps> = ({
         id={id}
         value={value}
         onChange={(e) => onChange && onChange(e.target.value)}
-        disabled={!editable}  // Desabilita se não for editável
+        onBlur={(e) => onBlur?.(e)}
+        disabled={!editable}
       >
         {options.map((option, index) => (
           <option key={index} value={option}>
@@ -56,6 +61,7 @@ export const TextField: React.FC<TextFieldProps> = ({
         type={type}
         defaultValue={defaultValue}
         readOnly={!editable}
+        onKeyDown={onKeyDown} // Passa o evento diretamente
       />
     )}
   </InputContainer>
