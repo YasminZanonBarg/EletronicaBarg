@@ -6,14 +6,18 @@ interface CreateAddressRequest {
   complemento?: string | null
 }
 
+interface CreateAddressResponse {
+  idEndereco: string
+}
+
 export async function createAddressRequest({
   cep,
   bairro,
   logradouro,
   numeroEndereco,
   complemento
-}: CreateAddressRequest) {
-  await fetch('http://localhost:3333/create-address', {
+}: CreateAddressRequest): Promise<CreateAddressResponse> {
+  const response = await fetch('http://localhost:3333/create-address', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -26,4 +30,11 @@ export async function createAddressRequest({
       complemento,
     }),
   })
+
+  if (!response.ok) {
+    throw new Error('Erro ao criar endereço')
+  }
+
+  const data = await response.json()
+  return data
 }
