@@ -1,6 +1,5 @@
 interface CreateServiceOrderRequest {
   idCliente: string
-  dataSaida?: Date | null
   aparelho: string
   marca: string
   modelo: string
@@ -18,7 +17,6 @@ interface CreateServiceOrderRequest {
 
 export async function createServiceOrder({
   idCliente,
-  dataSaida,
   aparelho,
   marca,
   modelo,
@@ -40,7 +38,6 @@ export async function createServiceOrder({
     },
     body: JSON.stringify({
       idCliente,
-      dataSaida, // Lembre de serializar a data corretamente se necessário!
       aparelho,
       marca,
       modelo,

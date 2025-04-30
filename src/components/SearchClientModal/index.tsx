@@ -15,7 +15,7 @@ import { useState } from "react";
 
 interface SearchClientProps {
   cpfSelecionado: string
-  onSelectClient: (client: { nomeCompleto: string; id: string }) => void
+  onSelectClient: (client: { nomeCompleto: string; id: string, celular1: string }) => void
 }
 
 export default function SearchClient({ cpfSelecionado, onSelectClient }: SearchClientProps) {
@@ -41,6 +41,7 @@ export default function SearchClient({ cpfSelecionado, onSelectClient }: SearchC
       onSelectClient({
         nomeCompleto: data.nomeCompleto,
         id: data.id,
+        celular1: data.celular1
       });
     }
   }

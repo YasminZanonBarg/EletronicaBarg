@@ -100,26 +100,6 @@ export const StyledTextField = styled.input`
   color: ${(props) => props.theme['gray-600']};
 `;
 
-export const WhatsAppButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: ${(props) => props.theme['green-300']};
-  color: ${(props) => props.theme['green-500']};
-  border: 1px solid ${(props) => props.theme['green-500']};
-  border-radius: 30px;
-  padding: 0.5rem 2rem;
-  cursor: pointer;
-
-  img {
-    width: 20px;
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme['green-400']};
-  }
-`;
-
 export const AccompanimentSection = styled.div`
   .first_part {
     margin-top: 2rem;

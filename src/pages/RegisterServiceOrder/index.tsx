@@ -1,7 +1,5 @@
 import "@material/web/icon/icon.js"
 import '@material/web/textfield/outlined-text-field.js'
-
-import IconWhatsApp from '../../assets/whatsapp_icon.png'
 import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
 import { TextField } from "../../components/TextField"
@@ -9,77 +7,17 @@ import { SectionWrapper } from "../../components/SectionWrapper"
 import { SaveButton } from "../../components/SaveButton"
 import SearchClient from "../../components/SearchClientModal"
 import CanceledClientModal from "../../components/CanceledClientModal"
-
-import { AccompanimentSection, ClientSection, Container, Content, DefaultSection, EquipmentSection, InputWrapper, SectionButtons, StyledTextField, WhatsAppButton } from "./styles"
-
-import { z } from "zod";
-import { createServiceOrder } from "../../http/create-service-order";
-import { useForm, Controller } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-
-import { getServiceOrder } from "../../http/get-service-order";
-import { useQuery } from "@tanstack/react-query"
+import { WhatsAppButton } from '../../components/WhatsappButton'
+import { AccompanimentSection, ClientSection, Container, Content, DefaultSection, EquipmentSection, InputWrapper, SectionButtons, StyledTextField } from "./styles"
+import { createServiceOrder } from "../../http/create-service-order"
+import { getServiceOrder } from "../../http/get-service-order"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 
-
-const createServiceOrderForm = z.object({
-  idCliente: z.string(),
-  dataSaida: z.coerce.date().nullable().optional(),
-  aparelho: z.string(),
-  marca: z.string(),
-  modelo: z.string(),
-  serie: z.string(),
-  defeito: z.string(),
-  acessorios: z.string(),
-  localizacaoAparelho: z.string(),
-  preOrcamento: z.string().nullable().optional(), // string vinda de decimal
-  valorMaoDeObra: z.string().nullable().optional(),
-  valorPecas: z.string().nullable().optional(),
-  valorTotal: z.string().nullable().optional(),
-  motivos: z.string().nullable().optional(),
-  notas: z.string().nullable().optional(),
-})
-
-type CreateServiceOrderForm = z.infer<typeof createServiceOrderForm>
-
 export function RegisterServiceOrder() {
-  const [selectedClient, setSelectedClient] = useState<{ nomeCompleto: string; id: string } | null>(null)
-
-  function handleSelectClient(client: { nomeCompleto: string; id: string }) {
-    setSelectedClient(client)
-  }
-
-  const { control, handleSubmit, reset, setValue } = useForm<CreateServiceOrderForm>({
-    resolver: zodResolver(createServiceOrderForm),
-  });
-
-  useEffect(() => {
-    if (selectedClient) {
-      setValue('idCliente', selectedClient.id)
-    }
-  }, [selectedClient, setValue]);
-
-  async function handleCreateServiceOrder(data: CreateServiceOrderForm) {
-    await createServiceOrder({
-      idCliente: data.idCliente,
-      dataSaida: data.dataSaida,
-      aparelho: data.aparelho,
-      marca: data.marca,
-      modelo: data.modelo,
-      serie: data.serie,
-      defeito: data.defeito,
-      acessorios: data.acessorios,
-      localizacaoAparelho: data.localizacaoAparelho,
-      preOrcamento: data.preOrcamento,
-      valorMaoDeObra: data.valorMaoDeObra,
-      valorPecas: data.valorPecas,
-      valorTotal: data.valorTotal,  
-      motivos: data.motivos,
-      notas: data.notas,
-    })
-
-    reset()
-  }
+  // Use State - Alterações no número da ordem de serviço
+  const [numeroOrdemServico, setNumeroOrdemServico] = useState("")
+  const queryClient = useQueryClient();  
 
   const { data } = useQuery({
     queryKey: ["get-service-order"],
@@ -87,14 +25,117 @@ export function RegisterServiceOrder() {
     staleTime: 1000 * 60,
   });
 
-  if (!data) {
-    return null;
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const novoNumero = data[0].numeroOrdemServico + 1
+      setNumeroOrdemServico(novoNumero.toString())
+    }
+  }, [data])
+
+  // Use State - Função vincular cliente
+  const [selectedClient, setSelectedClient] = useState<{nomeCompleto: string; id: string; celular1: string;} | null>(null)
+
+  // Função - Função vincular cliente
+  function handleSelectClient(client: { nomeCompleto: string; id: string; celular1: string }) {
+    setSelectedClient(client)
+  }  
+
+  const resetForm = () => {
+    const ids = [
+      'aparelho', 'marca', 'modelo', 'serie', 'defeito',
+      'acessorios', 'localizacaoAparelho', 'preOrcamento', 
+      'motivos', 'notas', 'valorMaoDeObra','valorPecas'
+    ]
+    ids.forEach(id => {
+      const input = document.getElementById(id) as HTMLInputElement
+      if (input) input.value = ''
+    })
+    setSelectedClient(null)
   }
 
-  const numeroOrdemServico = data[0].numeroOrdemServico + 1;
+  const handleSaveClick = async () => {
+      try {
+        // Coletar e validar dados do formulário
+        const aparelho = (document.getElementById('aparelho') as HTMLInputElement)?.value
+        const marca = (document.getElementById('marca') as HTMLInputElement)?.value
+        const modelo = (document.getElementById('modelo') as HTMLInputElement)?.value
+        const serie = (document.getElementById('serie') as HTMLInputElement)?.value
+        const defeito = (document.getElementById('defeito') as HTMLInputElement)?.value
+        const acessorios = (document.getElementById('acessorios') as HTMLInputElement)?.value
+        const localizacaoAparelho = (document.getElementById('localizacaoAparelho') as HTMLInputElement)?.value
+        const preOrcamento = (document.getElementById('preOrcamento') as HTMLInputElement)?.value
+        const motivos = (document.getElementById('motivos') as HTMLInputElement)?.value
+        const notas = (document.getElementById('notas') as HTMLInputElement)?.value
+        const valorMaoDeObra = (document.getElementById('valorMaoDeObra') as HTMLInputElement)?.value
+        const valorPecas = (document.getElementById('valorPecas') as HTMLInputElement)?.value
+  
+        if (!aparelho || !marca || !modelo || !serie || !defeito || !acessorios || !localizacaoAparelho) {
+          alert('Preencha todos os campos obrigatórios da ordem de serviço!')
+          return
+        }
 
+        if ( selectedClient?.id == null) {
+          alert('Selecione um cliente para a ordem de serviço')
+          return
+        }
+  
+        // Criar ordem de serviço
+        await createServiceOrder({
+          idCliente: selectedClient?.id || '',
+          aparelho,
+          marca,
+          modelo,
+          serie,
+          defeito,
+          acessorios,
+          localizacaoAparelho,
+          preOrcamento: preOrcamento || null,
+          motivos: motivos || null,
+          notas: notas || null,
+          valorMaoDeObra:  String(valorMaoDeObra) || null,
+          valorPecas:  String(valorPecas) || null,
+          valorTotal: String(
+            (valorPecas ? Number(valorPecas) : 0) + (valorMaoDeObra ? Number(valorMaoDeObra) : 0)
+          ),
+        })
+  
+        alert('Ordem de serviço cadastrada com sucesso!')
+        queryClient.invalidateQueries({ queryKey: ['get-service-order'] })
+        resetForm()
+      } catch (error) {
+        console.error('Erro ao salvar ordem de serviço:', error)
+        alert('Erro ao salvar ordem de serviço. Tente novamente.')
+      }
+  }
+
+  // Função para impressão dos dados
+  const handlePrint = () => {
+    const printContents = document.getElementById("print-area")?.innerHTML;
+    if (!printContents) return;
+  
+    const originalContents = document.body.innerHTML;
+  
+    document.body.innerHTML = `
+      <div style="zoom: 50%;">
+        ${printContents}
+      </div>
+      </br></br></br>
+      <div style="zoom: 50%;">
+        ${printContents}
+      </div>
+      `;
+    window.print();
+    document.body.innerHTML = originalContents;
+    window.location.reload();
+  }
+
+  if (!data) {
+    return null
+  }
+
+  // Váriavel de data cadastro
   const today = new Date();
-  const formattedDate = today.toISOString().split('T')[0];
+  const formattedDate = today.toLocaleDateString('fr-CA') 
 
   return (
     <Container>
@@ -104,10 +145,10 @@ export function RegisterServiceOrder() {
         <Header />
 
         <main>
-          <form onSubmit={handleSubmit(handleCreateServiceOrder)}>
+          <form id="print-area">
             <DefaultSection>
               <TextField
-                id="service_order"
+                id="numeroOrdemServico"
                 label="Nº Ordem de Serviço"
                 type="number"
                 defaultValue={String(numeroOrdemServico)}
@@ -140,83 +181,35 @@ export function RegisterServiceOrder() {
             <SectionWrapper title="APARELHO">
               <EquipmentSection>
                 <div className="first_part">
-                  <Controller
-                    control={control}
-                    name="aparelho"
-                    render={({ field }) => (
-                      <TextField
-                        id="equipment"
-                        label="Aparelho"
-                        value={String(field.value)}
-                        onChange={field.onChange}
-                      />
-                    )}
+                  <TextField
+                    id="aparelho"
+                    label="Aparelho"
                   />
-                  <Controller
-                    control={control}
-                    name="marca"
-                    render={({ field }) => (
-                      <TextField
-                        id="brand"
-                        label="Marca"
-                        value={String(field.value)}
-                        onChange={field.onChange}
-                      />
-                    )}
+                  <TextField
+                    id="marca"
+                    label="Marca"
                   />
-                  <Controller
-                    control={control}
-                    name="modelo"
-                    render={({ field }) => (
-                      <TextField
-                        id="model"
-                        label="Modelo"
-                        value={String(field.value)}
-                        onChange={field.onChange}
-                      />
-                    )}
+                  <TextField
+                    id="modelo"
+                    label="Modelo"
                   />
-                  <Controller
-                    control={control}
-                    name="serie"
-                    render={({ field }) => (
-                      <TextField
-                        id="serie"
-                        label="Série"
-                        value={String(field.value)}
-                        onChange={field.onChange}
-                      />
-                    )}
+                  <TextField
+                    id="serie"
+                    label="Série"
                   />
                 </div>
 
                 <div className="second_part">
-                  <Controller
-                      control={control}
-                      name="defeito"
-                      render={({ field }) => (
-                        <TextField
-                          id="defect"
-                          label="Defeito"
-                          multiline
-                          value={String(field.value)}
-                          onChange={field.onChange}
-                        />
-                      )}
-                    />
-                    <Controller
-                      control={control}
-                      name="acessorios"
-                      render={({ field }) => (
-                        <TextField
-                          id="accessories"
-                          label="Acessórios"
-                          multiline
-                          value={String(field.value)}
-                          onChange={field.onChange}
-                        />
-                      )}
-                    />
+                  <TextField
+                    id="defeito"
+                    label="Defeito"
+                    multiline
+                  />
+                  <TextField
+                    id="acessorios"
+                    label="Acessórios"
+                    multiline
+                  />
                 </div>
               </EquipmentSection>
             </SectionWrapper>
@@ -235,10 +228,7 @@ export function RegisterServiceOrder() {
                 />
                 </InputWrapper>
 
-                <WhatsAppButton>
-                  WhatsApp
-                  <img src={IconWhatsApp} alt="Ícone Eletrônica Barg"/>
-                </WhatsAppButton>
+                <WhatsAppButton type="button" phoneNumber={selectedClient?.celular1}/>
               </ClientSection>
             </SectionWrapper>
 
@@ -246,35 +236,19 @@ export function RegisterServiceOrder() {
               <AccompanimentSection>
                 <div className="first_part">
                   <div className="location">
-                    <Controller
-                      control={control}
-                      name="localizacaoAparelho"
-                      render={({ field }) => (
-                        <TextField
-                          id="location"
-                          label="Localização Aparelho"
-                          value={String(field.value)}
-                          onChange={field.onChange}
-                        />
-                      )}
+                    <TextField
+                      id="localizacaoAparelho"
+                      label="Localização Aparelho"
                     />
                   </div>
                   <button>
                     <md-icon>stars</md-icon>
                   </button>
                   <div className="pre_budget">
-                    <Controller
-                      control={control}
-                      name="preOrcamento"
-                      render={({ field }) => (
-                        <TextField
-                          id="pre_budget"
-                          label="Pré-Orçamento"
-                          type="number"
-                          value={String(field.value ?? '')}
-                          onChange={field.onChange}
-                        />
-                      )}
+                    <TextField
+                      id="preOrcamento"
+                      label="Pré-Orçamento"
+                      type="number"
                     />
                   </div>
                 </div>
@@ -282,65 +256,33 @@ export function RegisterServiceOrder() {
                 <div className="second_part">
                   <div className="first_half">
                     <div className="text-field-wrapper">
-                      <Controller
-                        control={control}
-                        name="motivos"
-                        render={({ field }) => (
-                          <TextField
-                            id="reasons"
-                            label="Motivos"
-                            multiline
-                            value={String(field.value ?? '')}
-                            onChange={field.onChange}
-                          />
-                        )}
+                      <TextField
+                        id="motivos"
+                        label="Motivos"
+                        multiline
                       />
                     </div>
                     <div className="text-field-wrapper">
-                      <Controller
-                        control={control}
-                        name="notas"
-                        render={({ field }) => (
-                          <TextField
-                            id="notes"
-                            label="Notas"
-                            multiline
-                            value={String(field.value ?? '')}
-                            onChange={field.onChange}
-                          />
-                        )}
+                      <TextField
+                        id="notas"
+                        label="Notas"
+                        multiline
                       />
                     </div>
                   </div>
                   <div className="second_half">
                     <div className="text-field-wrapper">
-                      <Controller
-                        control={control}
-                        name="valorMaoDeObra"
-                        render={({ field }) => (
-                          <TextField
-                            id="workforce"
-                            label="Mão de Obra"
-                            type="number"
-                            value={String(field.value ?? '')}
-                            onChange={field.onChange}
-                          />
-                        )}
+                      <TextField
+                        id="valorMaoDeObra"
+                        label="Mão de Obra"
+                        type="number"
                       />
                     </div>
                     <div className="text-field-wrapper">
-                      <Controller
-                        control={control}
-                        name="valorPecas"
-                        render={({ field }) => (
-                          <TextField
-                            id="parts"
-                            label="Peças"
-                            type="number"
-                            value={String(field.value ?? '')}
-                            onChange={field.onChange}
-                          />
-                        )}
+                      <TextField
+                        id="valorPecas"
+                        label="Peças"
+                        type="number"
                       />
                     </div>
                     <p>Total: R$ 0,00</p>
@@ -348,17 +290,22 @@ export function RegisterServiceOrder() {
                 </div>
               </AccompanimentSection>
             </SectionWrapper>
-            
-            <SectionButtons>
-              <div className="left_buttons">
-                <button className="simple_button">Imprimir</button>
-              </div>
-              <div className="right_buttons">
-                <SaveButton type="submit" />
-                <CanceledClientModal />
-              </div>
-            </SectionButtons>
           </form>
+          <SectionButtons>
+            <div className="left_buttons">
+              <button 
+                type="button"
+                className="simple_button"
+                onClick={handlePrint}
+              >
+                Imprimir
+              </button>
+            </div>
+            <div className="right_buttons">
+              <SaveButton onClick={handleSaveClick} />
+              <CanceledClientModal />
+            </div>
+          </SectionButtons>
         </main>
       </Content>
     </Container>
