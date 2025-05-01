@@ -191,7 +191,7 @@ export function EditServiceOrder() {
           <SectionWrapper title="CLIENTE">
             <ClientSection>
               <InputWrapper>
-                <StyledTextField id="equipment" defaultValue={serviceOrder.nomeCliente} />
+                <StyledTextField id="equipment" defaultValue={selectedClient.nomeCompleto} />
                 <SearchClient 
                   cpfSelecionado={selectedClient.cpf}
                   onSelectClient={handleSelectClient}
