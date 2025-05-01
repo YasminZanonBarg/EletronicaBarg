@@ -48,7 +48,7 @@ export function GeralClient() {
   }
 
   const handleDeleteSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: ["get-service-order"] })
+    queryClient.invalidateQueries({ queryKey: ["clients"] })
   }
 
   return (

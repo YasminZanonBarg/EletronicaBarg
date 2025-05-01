@@ -35,7 +35,7 @@ export function EditServiceOrder() {
     queryKey: ["get-service-order"],
     queryFn: getServiceOrder,
     staleTime: 1000 * 60,
-  });
+  })
 
   const [serviceOrder, setServiceOrder] = useState<ServiceOrderResponse[0] | null>(null)
   useEffect(() => {

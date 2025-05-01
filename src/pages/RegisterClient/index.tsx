@@ -23,25 +23,25 @@ import { createClientRequest } from '../../http/create-client'
 import { useState } from "react"
 
 export function RegisterClient() {
-  const [cidade, setCidade] = useState('')
+  // Estados e funções para buscar CEP
+  const [cep, setCep] = useState("")
+  const [cidade, setCidade] = useState("")
 
   const createCepMutation = useMutation({
-    mutationFn: (codigoCep: string) => createAndGetCep(codigoCep),
-    onSuccess: (data) => {
-      setCidade(data.cidade)
-    },
-    onError: (error) => {
-      console.error('Erro ao buscar CEP', error)
-    }
+    mutationFn: createAndGetCep,
+    onSuccess: (data) => setCidade(data.cidade),
+    onError: (error) => console.error("Erro ao buscar CEP", error),
   })
 
-  const handleCepEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const cepValue = e.currentTarget.value
-    if (cepValue.length === 8 && e.key === 'Enter') {
-      createCepMutation.mutate(cepValue)
+  const handleCepKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      const valorAtual = (e.currentTarget as HTMLInputElement).value
+      if (valorAtual.length === 8) {
+        createCepMutation.mutate(valorAtual)
+      }
     }
   }
-
+  
   const resetForm = () => {
     const ids = [
       'cep', 'neighborhood', 'street', 'house_number', 'complement',
@@ -141,7 +141,7 @@ export function RegisterClient() {
               <PersonalDataSection>
                 <div className="first_part">
                   <TextField 
-                    id="register_date" 
+                    id="dataCadastro" 
                     label="Data Cadastro" 
                     type="date" 
                     defaultValue={formattedDate}
@@ -185,12 +185,14 @@ export function RegisterClient() {
               <AddressSection>
                 <div className="first_part">
                   <div className="cep">
-                    <TextField
-                      id="cep"
-                      label="CEP"
-                      type="number"
-                      onKeyDown={handleCepEnter} 
-                    />
+                  <TextField
+                    id="cep"
+                    label="CEP"
+                    type="number"
+                    value={cep}
+                    onChange={(value: string) => setCep(value)}
+                    onKeyDown={handleCepKeyDown}
+                  />
                   </div>
                   <div className="city">
                     <TextField
