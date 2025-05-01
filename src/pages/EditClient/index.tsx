@@ -30,6 +30,7 @@ export function EditClient() {
   })
   
   const [client, setClient] = useState<ClientResponse[0] | null>(null)
+  
   useEffect(() => {
     if (data && id) {
       const foundClient = data.find((item) => item.id === id)

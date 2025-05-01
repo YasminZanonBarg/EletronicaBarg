@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { getServiceOrder, ServiceOrderResponse } from "../../http/get-service-order"
 import { getClients, ClientResponse } from "../../http/get-clients"
 import { useSearchParams } from "react-router-dom"
-
-import IconWhatsApp from '../../assets/whatsapp_icon.png'
+import { WhatsAppButton } from '../../components/WhatsappButton'
 import { NavigationRail } from "../../components/NavigationRail"
 import { Header } from "../../components/Header"
 import { TextField } from "../../components/TextField"
@@ -12,7 +11,7 @@ import { SectionWrapper } from "../../components/SectionWrapper"
 import { SaveButton } from "../../components/SaveButton"
 import SearchClient from "../../components/SearchClientModal"
 import CanceledClientModal from "../../components/CanceledClientModal"
-
+import { updateServiceOrderRequest } from "../../http/update-service-order"
 import { 
   AccompanimentSection, 
   ClientSection, 
@@ -22,20 +21,20 @@ import {
   EquipmentSection, 
   InputWrapper, 
   SectionButtons, 
-  StyledTextField, 
-  WhatsAppButton 
+  StyledTextField
 } from "./styles"
 
 export function EditServiceOrder() {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get("id");
-
   // Coletando informações da ordem de serviço
+  const queryClient = useQueryClient()
+  const [searchParams] = useSearchParams()
+  const id = searchParams.get("id")
+
   const { data: serviceOrderData } = useQuery({
     queryKey: ["get-service-order"],
     queryFn: getServiceOrder,
     staleTime: 1000 * 60,
-  });
+  })
 
   const [serviceOrder, setServiceOrder] = useState<ServiceOrderResponse[0] | null>(null);
 
@@ -46,16 +45,16 @@ export function EditServiceOrder() {
         setServiceOrder(foundOrder);
       }
     }
-  }, [serviceOrderData, id]);
+  }, [serviceOrderData, id])
 
   // Coletando informações do cliente
   const { data: clientData } = useQuery({
     queryKey: ["clients"],
     queryFn: getClients,
     staleTime: 1000 * 60,
-  });
+  })
 
-  const [client, setClient] = useState<ClientResponse[0] | null>(null);
+  const [client, setClient] = useState<ClientResponse[0] | null>(null)
 
   useEffect(() => {
     if (clientData && serviceOrder) {
@@ -64,7 +63,7 @@ export function EditServiceOrder() {
         setClient(foundClient);
       }
     }
-  }, [clientData, serviceOrder]);
+  }, [clientData, serviceOrder])
 
   // Atualizar o estado de selectedClient quando o cliente for encontrado
   useEffect(() => {
@@ -76,22 +75,74 @@ export function EditServiceOrder() {
         cpf: client?.cpf ?? "",
       });
     }
-  }, [serviceOrder, client]);
+  }, [serviceOrder, client])
 
   // State para vincular o cliente selecionado
-  const [selectedClient, setSelectedClient] = useState<{nomeCompleto: string; id: string; celular1: string, cpf: string}>({
+  const [selectedClient, setSelectedClient] = useState<{nomeCompleto: string; id: string; celular1: string; cpf: string}>({
     nomeCompleto: "",
     id: "",
     celular1: "",
     cpf: ""
-  });
+  })
 
   // Função para selecionar cliente
-  function handleSelectClient(client: { nomeCompleto: string; id: string; celular1: string, cpf: string }) {
-    setSelectedClient(client);
+  function handleSelectClient(client: { nomeCompleto: string; id: string; celular1: string; cpf: string }) {
+    setSelectedClient(client)
   } 
 
-  if (!serviceOrder) return <p>Ordem de serviço não encontrada</p>;
+  // Função para impressão dos dados
+  const handlePrint = () => {
+    const printContents = document.getElementById("print-area")?.innerHTML
+    if (!printContents) return
+  
+    const originalContents = document.body.innerHTML
+  
+    document.body.innerHTML = `
+      <div style="zoom: 50%;">
+        ${printContents}
+      </div>
+      </br></br></br>
+      <div style="zoom: 50%;">
+        ${printContents}
+      </div>
+      `
+    window.print()
+    document.body.innerHTML = originalContents
+    window.location.reload()
+  }
+
+  async function handleSave() {
+    if (!serviceOrder) return
+
+    // Atualização dos dados do cliente
+    const updatedServiceOrderData = {
+      id: serviceOrder.id,
+      idCliente: selectedClient.id,
+      situacao: (document.getElementById("situacao") as HTMLInputElement)?.value,
+      aparelho: (document.getElementById("aparelho") as HTMLInputElement)?.value,
+      marca: (document.getElementById("marca") as HTMLInputElement)?.value,
+      modelo: (document.getElementById("modelo") as HTMLInputElement)?.value,
+      defeito: (document.getElementById("defeito") as HTMLInputElement)?.value,
+      acessorios: (document.getElementById("acessorios") as HTMLInputElement)?.value,
+      localizacaoAparelho: (document.getElementById("localizacaoAparelho") as HTMLInputElement)?.value,
+      motivos: (document.getElementById("motivos") as HTMLInputElement)?.value || null,
+      notas: (document.getElementById("notas") as HTMLInputElement)?.value || null,
+      preOrcamento: (document.getElementById("preOrcamento") as HTMLInputElement)?.value,
+      valorMaoDeObra: (document.getElementById("valorMaoDeObra") as HTMLInputElement)?.value,
+      valorPecas: (document.getElementById("valorPecas") as HTMLInputElement)?.value 
+    }
+
+    try {
+      await updateServiceOrderRequest(updatedServiceOrderData)
+      queryClient.invalidateQueries({ queryKey: ["get-service-order"] })
+      alert("Ordem de serviço atualizada com sucesso!")
+    } catch (error) {
+      console.error("Erro ao atualizar ordem de serviço:", error)
+      alert("Erro ao salvar. Tente novamente.")
+    }
+  }
+
+  if (!serviceOrder) return <p>Ordem de serviço não encontrada</p>
 
   return (
     <Container>
@@ -100,10 +151,10 @@ export function EditServiceOrder() {
         <Header />
 
         <main>
-          <form>
+          <form id="print-area">
             <DefaultSection>
               <TextField
-                id="service_order"
+                id="numeroOrdemServico"
                 label="Nº Ordem de Serviço"
                 type="number"
                 defaultValue={String(serviceOrder.numeroOrdemServico)}
@@ -111,7 +162,7 @@ export function EditServiceOrder() {
               />
 
               <TextField
-                id="entry"
+                id="dataEntrada"
                 label="Entrada"
                 type="date"
                 defaultValue={new Date(serviceOrder.dataEntrada).toISOString().split('T')[0]}
@@ -119,10 +170,10 @@ export function EditServiceOrder() {
               />
 
               <TextField
-                id="exit"
+                id="dataSaida"
                 label="Saída"
                 defaultValue={serviceOrder.dataSaida ? new Date(serviceOrder.dataSaida).toLocaleDateString() : ''}
-                editable={true}
+                editable={false}
               />
 
               <TextField
@@ -142,142 +193,143 @@ export function EditServiceOrder() {
                 ]}
               />
             </DefaultSection>
-          </form>
 
-          <SectionWrapper title="APARELHO">
-            <form>
-              <EquipmentSection>
-                <div className="first_part">
-                  <TextField 
-                    id="equipment" 
-                    label="Aparelho" 
-                    defaultValue={serviceOrder.aparelho}
-                  />
-                  <TextField 
-                    id="brand" 
-                    label="Marca" 
-                    defaultValue={serviceOrder.marca}
-                  />
-                  <TextField 
-                    id="model" 
-                    label="Modelo" 
-                    defaultValue={serviceOrder.modelo}
-                  />
-                  <TextField 
-                    id="serie" 
-                    label="Série" 
-                    defaultValue={serviceOrder.serie}
-                  />
-                </div>
-
-                <div className="second_part">
-                  <TextField 
-                    id="defect" 
-                    label="Defeito" 
-                    defaultValue={serviceOrder.defeito}
-                    multiline 
-                  />
-                  <TextField 
-                    id="accessories" 
-                    label="Acessórios" 
-                    defaultValue={serviceOrder.acessorios}
-                    multiline 
-                  />
-                </div>
-              </EquipmentSection>
-            </form>
-          </SectionWrapper>
-
-          <SectionWrapper title="CLIENTE">
-            <ClientSection>
-              <InputWrapper>
-                <StyledTextField id="equipment" defaultValue={selectedClient.nomeCompleto} />
-                <SearchClient 
-                  cpfSelecionado={selectedClient.cpf}
-                  onSelectClient={handleSelectClient}
-                />
-              </InputWrapper>
-
-              <WhatsAppButton>
-                WhatsApp
-                <img src={IconWhatsApp} alt="Ícone Eletrônica Barg"/>
-              </WhatsAppButton>
-            </ClientSection>
-          </SectionWrapper>
-
-          <SectionWrapper title="ACOMPANHAMENTO TÉCNICO">
-            <form>
-              <AccompanimentSection>
-                <div className="first_part">
-                  <div className="location">
+            <SectionWrapper title="APARELHO">
+              <form>
+                <EquipmentSection>
+                  <div className="first_part">
                     <TextField 
-                      id="location" 
-                      label="Localização Aparelho"
-                      defaultValue={serviceOrder.localizacaoAparelho}
+                      id="aparelho" 
+                      label="Aparelho" 
+                      defaultValue={serviceOrder.aparelho}
+                    />
+                    <TextField 
+                      id="marca" 
+                      label="Marca" 
+                      defaultValue={serviceOrder.marca}
+                    />
+                    <TextField 
+                      id="modelo" 
+                      label="Modelo" 
+                      defaultValue={serviceOrder.modelo}
+                    />
+                    <TextField 
+                      id="serie" 
+                      label="Série" 
+                      defaultValue={serviceOrder.serie}
                     />
                   </div>
-                  <button>
-                    <md-icon>stars</md-icon>
-                  </button>
-                  <div className="pre_budget">
-                    <TextField 
-                      id="pre_budget" 
-                      type="number" 
-                      label="Pré-Orçamento"
-                      defaultValue={String(serviceOrder.preOrcamento)}
-                     />
-                  </div>
-                </div>
 
-                <div className="second_part">
-                  <div className="first_half">
-                    <div className="text-field-wrapper">
+                  <div className="second_part">
+                    <TextField 
+                      id="defeito" 
+                      label="Defeito" 
+                      defaultValue={serviceOrder.defeito}
+                      multiline 
+                    />
+                    <TextField 
+                      id="acessorios" 
+                      label="Acessórios" 
+                      defaultValue={serviceOrder.acessorios}
+                      multiline 
+                    />
+                  </div>
+                </EquipmentSection>
+              </form>
+            </SectionWrapper>
+
+            <SectionWrapper title="CLIENTE">
+              <ClientSection>
+                <InputWrapper>
+                  <StyledTextField id="nomeCompleto" defaultValue={selectedClient.nomeCompleto} />
+                  <SearchClient 
+                    cpfSelecionado={selectedClient.cpf}
+                    onSelectClient={handleSelectClient}
+                  />
+                </InputWrapper>
+
+                <WhatsAppButton type="button" phoneNumber={selectedClient?.celular1}/>
+              </ClientSection>
+            </SectionWrapper>
+
+              <SectionWrapper title="ACOMPANHAMENTO TÉCNICO">
+                <AccompanimentSection>
+                  <div className="first_part">
+                    <div className="location">
                       <TextField 
-                        id="reasons" 
-                        label="Motivos" 
-                        defaultValue={serviceOrder.motivos ?? ''}
-                        multiline 
+                        id="localizacaoAparelho" 
+                        label="Localização Aparelho"
+                        defaultValue={serviceOrder.localizacaoAparelho}
                       />
                     </div>
-                    <div className="text-field-wrapper">
+                    <button>
+                      <md-icon>stars</md-icon>
+                    </button>
+                    <div className="preOrcamento">
                       <TextField 
-                        id="notes" 
-                        label="Notas" 
-                        defaultValue={serviceOrder.notas ?? ''}
-                        multiline 
+                        id="preOrcamento" 
+                        type="number" 
+                        label="Pré-Orçamento"
+                        defaultValue={String(serviceOrder.preOrcamento)}
                       />
                     </div>
                   </div>
-                  <div className="second_half">
-                    <div className="text-field-wrapper">
-                      <TextField 
-                        id="workforce" 
-                        type="number" 
-                        label="Mão de Obra"
-                        defaultValue={String(serviceOrder.valorMaoDeObra)}
-                      />
+
+                  <div className="second_part">
+                    <div className="first_half">
+                      <div className="text-field-wrapper">
+                        <TextField 
+                          id="motivos" 
+                          label="Motivos" 
+                          defaultValue={serviceOrder.motivos ?? ''}
+                          multiline 
+                        />
+                      </div>
+                      <div className="text-field-wrapper">
+                        <TextField 
+                          id="notas" 
+                          label="Notas" 
+                          defaultValue={serviceOrder.notas ?? ''}
+                          multiline 
+                        />
+                      </div>
                     </div>
-                    <div className="text-field-wrapper">
-                      <TextField 
-                        id="parts" 
-                        type="number" 
-                        label="Peças"
-                        defaultValue={String(serviceOrder.valorPecas)}
-                      />
+                    <div className="second_half">
+                      <div className="text-field-wrapper">
+                        <TextField 
+                          id="valorMaoDeObra" 
+                          type="number" 
+                          label="Mão de Obra"
+                          defaultValue={String(serviceOrder.valorMaoDeObra)}
+                        />
+                      </div>
+                      <div className="text-field-wrapper">
+                        <TextField 
+                          id="valorPecas" 
+                          type="number" 
+                          label="Peças"
+                          defaultValue={String(serviceOrder.valorPecas)}
+                        />
+                      </div>
+                      <p>Total: R$ { (Number(serviceOrder.valorPecas) + Number(serviceOrder.valorMaoDeObra) || 0).toFixed(2) }</p>
                     </div>
-                    <p>Total: R$ { (Number(serviceOrder.valorPecas) + Number(serviceOrder.valorMaoDeObra) || 0).toFixed(2) }</p>
                   </div>
-                </div>
-              </AccompanimentSection>
-            </form>
-          </SectionWrapper>
+                </AccompanimentSection>
+            </SectionWrapper>
+          </form>
 
           <SectionButtons>
             <div className="left_buttons">
-              <button className="simple_button">Imprimir</button>
+              <button 
+                type="button"
+                className="simple_button"
+                onClick={handlePrint}
+              >
+                Imprimir
+              </button>
             </div>
             <div className="right_buttons">
-              <SaveButton />
+              <SaveButton onClick={handleSave} />
               <CanceledClientModal />
             </div>
           </SectionButtons>

@@ -33,10 +33,10 @@ export function RegisterServiceOrder() {
   }, [data])
 
   // Use State - Função vincular cliente
-  const [selectedClient, setSelectedClient] = useState<{nomeCompleto: string; id: string; celular1: string;} | null>(null)
+  const [selectedClient, setSelectedClient] = useState<{nomeCompleto: string; id: string; celular1: string; cpf: string} | null>(null)
 
   // Função - Função vincular cliente
-  function handleSelectClient(client: { nomeCompleto: string; id: string; celular1: string }) {
+  function handleSelectClient(client: { nomeCompleto: string; id: string; celular1: string; cpf: string }) {
     setSelectedClient(client)
   }  
 
@@ -110,10 +110,10 @@ export function RegisterServiceOrder() {
 
   // Função para impressão dos dados
   const handlePrint = () => {
-    const printContents = document.getElementById("print-area")?.innerHTML;
-    if (!printContents) return;
+    const printContents = document.getElementById("print-area")?.innerHTML
+    if (!printContents) return
   
-    const originalContents = document.body.innerHTML;
+    const originalContents = document.body.innerHTML
   
     document.body.innerHTML = `
       <div style="zoom: 50%;">
@@ -123,10 +123,10 @@ export function RegisterServiceOrder() {
       <div style="zoom: 50%;">
         ${printContents}
       </div>
-      `;
-    window.print();
-    document.body.innerHTML = originalContents;
-    window.location.reload();
+      `
+    window.print()
+    document.body.innerHTML = originalContents
+    window.location.reload()
   }
 
   if (!data) {
@@ -223,7 +223,7 @@ export function RegisterServiceOrder() {
                   readOnly
                 />
                 <SearchClient
-                  cpfSelecionado={selectedClient?.id ?? ''}
+                  cpfSelecionado={selectedClient?.cpf ?? ''}
                   onSelectClient={handleSelectClient}
                 />
                 </InputWrapper>
