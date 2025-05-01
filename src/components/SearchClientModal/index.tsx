@@ -1,37 +1,37 @@
 import "@material/web/icon/icon.js"
 import * as Dialog from "@radix-ui/react-dialog"
-
 import { TextField } from "../TextField"
 import { SectionWrapper } from "../SectionWrapper"
 import { SearchButton } from "../../components/SearchButton"
 import { SaveButton } from "../../components/SaveButton"
-
 import { EditIcon, ModalContent, ModalCloseIcon, ModalOverlay, SaveButtonWrapper, SearchContainer } from "./styles"
 import { AddressSection, ContactSection, PersonalDataSection } from "../../pages/RegisterClient/styles"
-
 import { useQuery } from "@tanstack/react-query"
 import { getClientByCpf, ClientResponse } from "../../http/get-client-by-cpf"
-import { useState } from "react";
+import { useState, useEffect } from "react"
 
 interface SearchClientProps {
   cpfSelecionado: string
-  onSelectClient: (client: { nomeCompleto: string; id: string, celular1: string }) => void
+  onSelectClient: (client: { nomeCompleto: string; id: string; celular1: string; cpf: string }) => void
 }
 
 export default function SearchClient({ cpfSelecionado, onSelectClient }: SearchClientProps) {
-  // const queryClient = useQueryClient()
-  const [cpf, setCpf] = useState('')
+  const [cpf, setCpf] = useState(cpfSelecionado || '')
 
-  const { data, isLoading, error } = useQuery<ClientResponse>( {
+  const { data, isLoading, error } = useQuery<ClientResponse>({
     queryKey: ['get-client-by-cpf', cpf],
     queryFn: ({ queryKey }) => {
       const cpfParam = queryKey[1] as string
       return getClientByCpf(cpfParam)
     },
-    enabled: !!cpf, 
+    enabled: !!cpf,  // A busca só será ativada quando o CPF estiver preenchido
     staleTime: 1000 * 60,
-  });
+  })
 
+  useEffect(() => {
+    setCpf(cpfSelecionado)
+  }, [cpfSelecionado])
+  
   function handleSearchClient(cpfInput: string) {
     setCpf(cpfInput)
   }
@@ -41,8 +41,9 @@ export default function SearchClient({ cpfSelecionado, onSelectClient }: SearchC
       onSelectClient({
         nomeCompleto: data.nomeCompleto,
         id: data.id,
-        celular1: data.celular1
-      });
+        celular1: data.celular1,
+        cpf: data.cpf
+      })
     }
   }
 
@@ -62,7 +63,7 @@ export default function SearchClient({ cpfSelecionado, onSelectClient }: SearchC
               placeholder={cpfSelecionado ? cpfSelecionado : "Pesquisar cliente por CPF"}
               onSearch={handleSearchClient}
               size="small"
-              defaultValue={cpf} 
+              defaultValue={cpf}
             />
           </SearchContainer>
 
@@ -120,28 +121,6 @@ export default function SearchClient({ cpfSelecionado, onSelectClient }: SearchC
                       type="text"
                       defaultValue={data?.rg || ""}
                     />
-                  </div>
-                </div>
-
-                <div className="third_part">
-                  <div className="filiation">
-                    <TextField
-                      id="filiation"
-                      label="Filiação"
-                      multiline
-                      defaultValue={data?.filiacao || ""}
-                    />
-                  </div>
-                  <div className="observation">
-                    <TextField
-                      id="observation"
-                      label="Observação"
-                      multiline
-                      defaultValue={data?.observacao || ""}
-                    />
-                    <button className="clear-button">
-                      <md-icon>error</md-icon>
-                    </button>
                   </div>
                 </div>
               </PersonalDataSection>

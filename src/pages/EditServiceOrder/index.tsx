@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getServiceOrder } from "../../http/get-service-order";
-import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { getServiceOrder, ServiceOrderResponse } from "../../http/get-service-order"
+import { getClients, ClientResponse } from "../../http/get-clients"
+import { useSearchParams } from "react-router-dom"
 
 import IconWhatsApp from '../../assets/whatsapp_icon.png'
 import { NavigationRail } from "../../components/NavigationRail"
@@ -25,27 +26,70 @@ import {
   WhatsAppButton 
 } from "./styles"
 
-import { ServiceOrderResponse } from "../../http/get-service-order"
-
 export function EditServiceOrder() {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
 
-  const { data } = useQuery({
+  // Coletando informações da ordem de serviço
+  const { data: serviceOrderData } = useQuery({
     queryKey: ["get-service-order"],
     queryFn: getServiceOrder,
     staleTime: 1000 * 60,
-  })
+  });
 
-  const [serviceOrder, setServiceOrder] = useState<ServiceOrderResponse[0] | null>(null)
+  const [serviceOrder, setServiceOrder] = useState<ServiceOrderResponse[0] | null>(null);
+
   useEffect(() => {
-    if (data && id) {
-      const foundOrder = data.find((item) => item.id === id);
+    if (serviceOrderData && id) {
+      const foundOrder = serviceOrderData.find((item) => item.id === id);
       if (foundOrder) {
-        setServiceOrder(foundOrder)
+        setServiceOrder(foundOrder);
       }
     }
-  }, [data, id]);
+  }, [serviceOrderData, id]);
+
+  // Coletando informações do cliente
+  const { data: clientData } = useQuery({
+    queryKey: ["clients"],
+    queryFn: getClients,
+    staleTime: 1000 * 60,
+  });
+
+  const [client, setClient] = useState<ClientResponse[0] | null>(null);
+
+  useEffect(() => {
+    if (clientData && serviceOrder) {
+      const foundClient = clientData.find((item) => item.id === serviceOrder.idCliente);
+      if (foundClient) {
+        setClient(foundClient);
+      }
+    }
+  }, [clientData, serviceOrder]);
+
+  // Atualizar o estado de selectedClient quando o cliente for encontrado
+  useEffect(() => {
+    if (serviceOrder && client) {
+      setSelectedClient({
+        nomeCompleto: serviceOrder.nomeCliente ?? "",
+        id: serviceOrder.idCliente ?? "",
+        celular1: client?.celular1 ?? "",
+        cpf: client?.cpf ?? "",
+      });
+    }
+  }, [serviceOrder, client]);
+
+  // State para vincular o cliente selecionado
+  const [selectedClient, setSelectedClient] = useState<{nomeCompleto: string; id: string; celular1: string, cpf: string}>({
+    nomeCompleto: "",
+    id: "",
+    celular1: "",
+    cpf: ""
+  });
+
+  // Função para selecionar cliente
+  function handleSelectClient(client: { nomeCompleto: string; id: string; celular1: string, cpf: string }) {
+    setSelectedClient(client);
+  } 
 
   if (!serviceOrder) return <p>Ordem de serviço não encontrada</p>;
 
@@ -148,7 +192,10 @@ export function EditServiceOrder() {
             <ClientSection>
               <InputWrapper>
                 <StyledTextField id="equipment" defaultValue={serviceOrder.nomeCliente} />
-                <SearchClient />
+                <SearchClient 
+                  cpfSelecionado={selectedClient.cpf}
+                  onSelectClient={handleSelectClient}
+                />
               </InputWrapper>
 
               <WhatsAppButton>
