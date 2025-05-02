@@ -10,6 +10,7 @@ type TextFieldProps = {
   multiline?: boolean;
   rows?: number;
   select?: boolean;
+  inputRef?: React.Ref<HTMLInputElement>;
   options?: string[];
   value?: string;
   onChange?: (value: string) => void;
@@ -31,6 +32,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   onChange,
   onBlur,
   onKeyDown,
+  inputRef,
 }) => (
   <InputContainer>
     <Label htmlFor={id}>{label}</Label>
@@ -62,6 +64,7 @@ export const TextField: React.FC<TextFieldProps> = ({
         defaultValue={defaultValue}
         readOnly={!editable}
         onKeyDown={onKeyDown} // Passa o evento diretamente
+        ref={inputRef}
       />
     )}
   </InputContainer>
