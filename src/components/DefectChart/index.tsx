@@ -23,11 +23,11 @@ export function DefectChart({ data }: Props) {
   }))
 
   return (
-    <ResponsiveContainer width="100%" height={200}>
+    <ResponsiveContainer width="100%" height={220}>
       <ComposedChart
         layout="vertical"
         data={formattedData}
-        margin={{ top: 40, right: 15, bottom: 0, left: 0 }}
+        margin={{ top: 50, right: 15, bottom: 0, left: 0 }}
       >
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis

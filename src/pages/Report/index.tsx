@@ -13,6 +13,8 @@ import { useRef, useState } from "react"
 import { getBigNumbersMetrics } from "../../http/get-big-numbers-metrics"
 import { getPeriodDefectsMetrics } from "../../http/get-period-defects-metrics"
 import { DefectChart } from "../../components/DefectChart/index"
+import { getOrdersPerDayMetrics } from "../../http/get-orders-per-day-metrics"
+import { OrdersPerDayChart } from "../../components/OrdersPerDayChart/index"
 
 export function Report() {
   const deRef = useRef<HTMLInputElement>(null)
@@ -27,6 +29,7 @@ export function Report() {
   })
 
   const [defectData, setDefectData] = useState<{ defeito: string; quantidade: number }[]>([])
+  const [ordersPerDayData, setordersPerDay] = useState<{ dataEntrada: string; quantidade: number }[]>([])
 
   const bigMetricsMutation  = useMutation({
     mutationFn: async () => {
@@ -52,21 +55,40 @@ export function Report() {
       return res.defeitos
     },
     onSuccess: (data) => {
-      const chartData = data.map(defeito => ({
+      const defectchartData = data.map(defeito => ({
         defeito: defeito.defeito,
         quantidade: defeito.quantidade
       }))
-      setDefectData(chartData)
+      setDefectData(defectchartData)
     },
     onError: () => {
       alert("Erro ao buscar defeitos.")
     }
   })
 
+  const ordersPerDayMutation = useMutation({
+    mutationFn: async () => {
+      const startDate = deRef.current?.value || ""
+      const finalDate = paraRef.current?.value || ""
+      const res = await getOrdersPerDayMetrics(startDate, finalDate)
+      return res.dataEntrada
+    },
+    onSuccess: (data) => {
+      const orderPerDayChartData = data.map(dataEntrada => ({
+        dataEntrada: dataEntrada.dataEntrada,
+        quantidade: dataEntrada.quantidade
+      }))
+      setordersPerDay(orderPerDayChartData)
+    },
+    onError: () => {
+      alert("Erro ao buscar ordens por dia.")
+    }
+  })
 
   function handleSave() {
     bigMetricsMutation.mutate()
     defectsMutation.mutate()
+    ordersPerDayMutation.mutate()
   }
 
   return (
@@ -119,6 +141,7 @@ export function Report() {
             </ReportChart>
 
             <ReportChart title="Ordem de Serviço Abertas por Dia">
+              {ordersPerDayData.length > 0 ? <OrdersPerDayChart data={ordersPerDayData} /> : <p>Nenhum dado</p>}
             </ReportChart>
           </ReportBigContainers>
         </main>
