@@ -11,6 +11,8 @@ import { Container, Content, HeaderContainer, ReportBigContainers, ReportSmallCo
 import { useMutation } from "@tanstack/react-query"
 import { useRef, useState } from "react"
 import { getBigNumbersMetrics } from "../../http/get-big-numbers-metrics"
+import { getPeriodDefectsMetrics } from "../../http/get-period-defects-metrics"
+import { DefectChart } from "../../components/DefectChart/index"
 
 export function Report() {
   const deRef = useRef<HTMLInputElement>(null)
@@ -24,7 +26,9 @@ export function Report() {
     taxa_aprovacao: 0,
   })
 
-  const mutation = useMutation({
+  const [defectData, setDefectData] = useState<{ defeito: string; quantidade: number }[]>([])
+
+  const bigMetricsMutation  = useMutation({
     mutationFn: async () => {
       const startDate = deRef.current?.value || ""
       const finalDate = paraRef.current?.value || ""
@@ -40,8 +44,29 @@ export function Report() {
     }
   })
 
+  const defectsMutation = useMutation({
+    mutationFn: async () => {
+      const startDate = deRef.current?.value || ""
+      const finalDate = paraRef.current?.value || ""
+      const res = await getPeriodDefectsMetrics(startDate, finalDate)
+      return res.defeitos
+    },
+    onSuccess: (data) => {
+      const chartData = data.map(defeito => ({
+        defeito: defeito.defeito,
+        quantidade: defeito.quantidade
+      }))
+      setDefectData(chartData)
+    },
+    onError: () => {
+      alert("Erro ao buscar defeitos.")
+    }
+  })
+
+
   function handleSave() {
-    mutation.mutate()
+    bigMetricsMutation.mutate()
+    defectsMutation.mutate()
   }
 
   return (
@@ -90,6 +115,7 @@ export function Report() {
 
           <ReportBigContainers>
             <ReportChart title="Consertos x Problemas">
+              {defectData.length > 0 ? <DefectChart data={defectData} /> : <p>Nenhum dado</p>}
             </ReportChart>
 
             <ReportChart title="Ordem de Serviço Abertas por Dia">
