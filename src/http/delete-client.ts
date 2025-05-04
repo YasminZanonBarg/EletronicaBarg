@@ -3,7 +3,7 @@ export interface DeleteClientRequest {
 }
 
 export async function deleteClient({ id }: DeleteClientRequest) {
-  const result = await fetch('http://localhost:3333/delete-client', {
+  const result = await fetch('https://eletronica-barg-api.onrender.com/delete-client', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

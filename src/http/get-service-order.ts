@@ -22,7 +22,7 @@ export type ServiceOrderResponse = {
 }[]
 
 export async function getServiceOrder(): Promise<ServiceOrderResponse> {
-  const response = await fetch('http://localhost:3333/service-order')
+  const response = await fetch('https://eletronica-barg-api.onrender.com/service-order')
   const data = await response.json()
 
   return data.result

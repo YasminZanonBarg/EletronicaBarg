@@ -3,7 +3,7 @@ export interface DeleteServiceOrderRequest {
 }
 
 export async function deleteServiceOrder({ id }: DeleteServiceOrderRequest) {
-  const result = await fetch('http://localhost:3333/delete-service-order', {
+  const result = await fetch('https://eletronica-barg-api.onrender.com/delete-service-order', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'

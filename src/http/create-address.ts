@@ -17,7 +17,7 @@ export async function createAddressRequest({
   numeroEndereco,
   complemento
 }: CreateAddressRequest): Promise<CreateAddressResponse> {
-  const response = await fetch('http://localhost:3333/create-address', {
+  const response = await fetch('https://eletronica-barg-api.onrender.com/create-address', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ export async function updateAddressRequest({
   id,
   ...data
 }: UpdateAddressRequest) {
-  await fetch(`http://localhost:3333/update-address/${id}`, {
+  await fetch(`https://eletronica-barg-api.onrender.com/update-address/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

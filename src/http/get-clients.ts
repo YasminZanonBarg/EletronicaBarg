@@ -23,7 +23,7 @@ export type ClientResponse = {
 }[]
 
 export async function getClients(): Promise<ClientResponse> {
-  const response = await fetch('http://localhost:3333/clients')
+  const response = await fetch('https://eletronica-barg-api.onrender.com/clients')
   const data = await response.json()
 
   return data.result

@@ -29,7 +29,7 @@ export async function createClientRequest({
   telefone1,
   telefone2,
 }: CreateClientRequest) {
-  await fetch('http://localhost:3333/create-client', {
+  await fetch('https://eletronica-barg-api.onrender.com/create-client', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

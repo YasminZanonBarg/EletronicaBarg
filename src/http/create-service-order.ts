@@ -31,7 +31,7 @@ export async function createServiceOrder({
   motivos,
   notas,
 }: CreateServiceOrderRequest) {
-  await fetch('http://localhost:3333/create-service-order', {
+  await fetch('https://eletronica-barg-api.onrender.com/create-service-order', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

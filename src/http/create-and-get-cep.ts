@@ -3,7 +3,7 @@ export type CepResponse = {
 }
 
 export async function createAndGetCep(codigoCep: string): Promise<CepResponse> {
-  const response = await fetch('http://localhost:3333/create-and-get-cep', {
+  const response = await fetch('https://eletronica-barg-api.onrender.com/create-and-get-cep', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

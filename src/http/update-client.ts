@@ -19,7 +19,7 @@ export async function updateClientRequest({
   id,
   ...data
 }: UpdateClientRequest) {
-  await fetch(`http://localhost:3333/update-client/${id}`, {
+  await fetch(`https://eletronica-barg-api.onrender.com/update-client/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

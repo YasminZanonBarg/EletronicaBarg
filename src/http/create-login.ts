@@ -4,7 +4,7 @@ interface CreateLogin {
 }
 
 export async function createLogin({ nomeUsuario, senha }: CreateLogin) {
-  const response = await fetch('http://localhost:3333/login', {
+  const response = await fetch('https://eletronica-barg-api.onrender.com/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

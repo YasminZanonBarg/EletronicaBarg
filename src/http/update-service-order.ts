@@ -22,7 +22,7 @@ export async function updateServiceOrderRequest({
   id,
   ...data
 }: UpdateServiceOrderRequest) {
-  const response = await fetch(`http://localhost:3333/update-service-order/${id}`, {
+  const response = await fetch(`https://eletronica-barg-api.onrender.com/update-service-order/${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

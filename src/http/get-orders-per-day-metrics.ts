@@ -11,7 +11,7 @@ export async function getOrdersPerDayMetrics(
   startDate: string,
   finalDate: string
 ): Promise<getOrdersPerDayMetricsResponse> {
-  const response = await fetch('http://localhost:3333/get-orders-per-day-metrics', {
+  const response = await fetch('https://eletronica-barg-api.onrender.com/get-orders-per-day-metrics', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

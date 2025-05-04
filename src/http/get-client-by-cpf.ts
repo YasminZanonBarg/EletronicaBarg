@@ -22,7 +22,7 @@ export type ClientResponse = {
 }
 
 export async function getClientByCpf(cpf: string): Promise<ClientResponse> {
-  const response = await fetch(`http://localhost:3333/get-client-by-cpf?cpf=${cpf}`)
+  const response = await fetch(`https://eletronica-barg-api.onrender.com/get-client-by-cpf?cpf=${cpf}`)
 
   if (!response.ok) {
     throw new Error('Erro ao buscar cliente')
