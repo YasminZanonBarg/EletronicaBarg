@@ -1,15 +1,14 @@
 import "@material/web/icon/icon.js"
 import '@material/web/button/outlined-button.js'
-
 import { IncludeButtonContainer } from "./styles"
 
 interface IncludeButtonProps {
-    url: string;
+    onClick: () => void;
 }
 
-export function IncludeButton({ url }: IncludeButtonProps) {
-    return(
-        <IncludeButtonContainer href={url}>
+export function IncludeButton({ onClick }: IncludeButtonProps) {
+    return (
+        <IncludeButtonContainer as="button" onClick={onClick}>
             <span>
                 <md-icon>add</md-icon>
                 Incluir

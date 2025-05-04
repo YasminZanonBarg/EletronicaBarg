@@ -62,7 +62,7 @@ export function GeralClient() {
           <FirstContent>
             <div className="left-content">
               <h1>Clientes</h1>
-              <IncludeButton url="http://localhost:5173/GeralClient/Register" />
+              <IncludeButton onClick={() => navigate("/GeralClient/Register")} />
             </div>
 
             <div>

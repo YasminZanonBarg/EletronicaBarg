@@ -86,7 +86,7 @@ export function GeralServiceOrder() {
           <FirstContent>
             <div className="left-content">
               <h1>Ordem de Serviço</h1>
-              <IncludeButton url="http://localhost:5173/GeralServiceOrder/Register" />
+              <IncludeButton onClick={() => navigate("/GeralServiceOrder/Register")} />
             </div>
 
             <div>
