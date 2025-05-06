@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-interface IncludeButtonProps extends React.HTMLProps<HTMLElement> {
-  href?: string;
-}
+interface IncludeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
 // Definindo o estilo diretamente no styled-component para o Web Component
 export const IncludeButtonContainer = styled("md-outlined-button")<IncludeButtonProps>`
