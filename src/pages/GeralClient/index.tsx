@@ -114,8 +114,8 @@ export function GeralClient() {
                       <td width="20%">{client.nomeCompleto}</td>
                       <td width="16%">{dataFormatter.format(new Date(client.dataCadastro))}</td>
                       <td width="16%">{client.cpf}</td>
+                      <td width="16%">{client.celular1 ?? "-"}</td>
                       <td width="16%">{client.telefone1 ?? "-"}</td>
-                      <td width="16%">{client.telefone2 ?? "-"}</td>
                     </tr>
                   );
                 })}
