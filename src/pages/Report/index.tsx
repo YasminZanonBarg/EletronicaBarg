@@ -16,6 +16,13 @@ import { DefectChart } from "../../components/DefectChart/index"
 import { getOrdersPerDayMetrics } from "../../http/get-orders-per-day-metrics"
 import { OrdersPerDayChart } from "../../components/OrdersPerDayChart/index"
 
+function formatDateToUTC(dateStr: string): string {
+  // Cria um objeto Date fixando a hora em 00:00 UTC
+  const [year, month, day] = dateStr.split("-").map(Number)
+  const date = new Date(Date.UTC(year, month - 1, day)) // mês começa em 0
+  return date.toISOString().split("T")[0] // retorna apenas a parte YYYY-MM-DD
+}
+
 export function Report() {
   const deRef = useRef<HTMLInputElement>(null)
   const paraRef = useRef<HTMLInputElement>(null)
@@ -31,10 +38,12 @@ export function Report() {
   const [defectData, setDefectData] = useState<{ defeito: string; quantidade: number }[]>([])
   const [ordersPerDayData, setordersPerDay] = useState<{ dataEntrada: string; quantidade: number }[]>([])
 
-  const bigMetricsMutation  = useMutation({
+  const bigMetricsMutation = useMutation({
     mutationFn: async () => {
-      const startDate = deRef.current?.value || ""
-      const finalDate = paraRef.current?.value || ""
+      const startDateRaw = deRef.current?.value || ""
+      const finalDateRaw = paraRef.current?.value || ""
+      const startDate = formatDateToUTC(startDateRaw)
+      const finalDate = formatDateToUTC(finalDateRaw)
 
       const res = await getBigNumbersMetrics(startDate, finalDate)
       return res.metrics
@@ -49,8 +58,11 @@ export function Report() {
 
   const defectsMutation = useMutation({
     mutationFn: async () => {
-      const startDate = deRef.current?.value || ""
-      const finalDate = paraRef.current?.value || ""
+      const startDateRaw = deRef.current?.value || ""
+      const finalDateRaw = paraRef.current?.value || ""
+      const startDate = formatDateToUTC(startDateRaw)
+      const finalDate = formatDateToUTC(finalDateRaw)
+
       const res = await getPeriodDefectsMetrics(startDate, finalDate)
       return res.defeitos
     },
@@ -68,8 +80,11 @@ export function Report() {
 
   const ordersPerDayMutation = useMutation({
     mutationFn: async () => {
-      const startDate = deRef.current?.value || ""
-      const finalDate = paraRef.current?.value || ""
+      const startDateRaw = deRef.current?.value || ""
+      const finalDateRaw = paraRef.current?.value || ""
+      const startDate = formatDateToUTC(startDateRaw)
+      const finalDate = formatDateToUTC(finalDateRaw)
+
       const res = await getOrdersPerDayMetrics(startDate, finalDate)
       return res.dataEntrada
     },
