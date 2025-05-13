@@ -1,3 +1,5 @@
+import { formatInTimeZone } from 'date-fns-tz'
+
 import {
   BarChart, Bar, XAxis, YAxis,
   CartesianGrid, Tooltip, ResponsiveContainer, Rectangle
@@ -22,11 +24,7 @@ export function OrdersPerDayChart({ data }: OrdersPerDayChartProps) {
           angle={0}
           height={30}
           tickFormatter={(value: string) => {
-            const date = new Date(value)
-            return new Intl.DateTimeFormat('pt-BR', {
-              day: '2-digit',
-              timeZone: 'America/Sao_Paulo',
-            }).format(date)
+            return formatInTimeZone(value, 'America/Sao_Paulo', 'dd')
           }}
           tick={{ fontSize: 14, fontWeight: 'normal' }}
         />
