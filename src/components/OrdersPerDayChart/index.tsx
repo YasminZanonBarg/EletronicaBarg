@@ -23,7 +23,10 @@ export function OrdersPerDayChart({ data }: OrdersPerDayChartProps) {
           height={30}
           tickFormatter={(value: string) => {
             const date = new Date(value)
-            return date.getDate().toString().padStart(2, '0')
+            return new Intl.DateTimeFormat('pt-BR', {
+              day: '2-digit',
+              timeZone: 'America/Sao_Paulo',
+            }).format(date)
           }}
           tick={{ fontSize: 14, fontWeight: 'normal' }}
         />
