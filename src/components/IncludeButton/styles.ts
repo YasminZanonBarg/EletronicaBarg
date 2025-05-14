@@ -5,7 +5,7 @@ interface IncludeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 export const IncludeButtonContainer = styled.button<IncludeButtonProps>`
   background-color: ${(props) => props.theme["green-300"]};
   color: ${(props) => props.theme["green-500"]};
-  border: none; /* remove a borda */
+  border: 1px solid ${(props) => props.theme["green-500"]};
   border-radius: 30px;
   width: 100%;
   max-width: 7rem;
@@ -15,13 +15,12 @@ export const IncludeButtonContainer = styled.button<IncludeButtonProps>`
   
   display: flex;
   align-items: center;
-  justify-content: center; /* centraliza horizontalmente */
+  justify-content: center; 
 
   span {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.3rem; /* espaço entre o ícone e o texto */
     white-space: nowrap;
   }
 
