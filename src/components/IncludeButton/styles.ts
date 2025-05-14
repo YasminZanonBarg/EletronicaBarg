@@ -2,18 +2,17 @@ import styled from "styled-components";
 
 interface IncludeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 
-export const IncludeButtonContainer = styled("md-outlined-button")<IncludeButtonProps>`
-  --md-outlined-button-outline-width: 0; /* remove a borda */
-  --md-outlined-button-outline-color: transparent;
-  --md-outlined-button-container-shape: 30px;
-  --md-sys-color-primary: ${(props) => props.theme["green-500"]};
-  --md-sys-color-on-primary: ${(props) => props.theme["green-300"]};
-  background: ${(props) => props.theme["green-300"]};
-  font-size: 1rem;
+export const IncludeButtonContainer = styled.button<IncludeButtonProps>`
+  background-color: ${(props) => props.theme["green-300"]};
+  color: ${(props) => props.theme["green-500"]};
+  border: none; /* remove a borda */
+  border-radius: 30px;
   width: 100%;
   max-width: 7rem;
   height: 3rem;
-
+  font-size: 1rem;
+  cursor: pointer;
+  
   display: flex;
   align-items: center;
   justify-content: center; /* centraliza horizontalmente */
