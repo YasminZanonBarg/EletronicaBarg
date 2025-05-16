@@ -132,7 +132,6 @@ export default function SearchClient({ cpfSelecionado, onSelectClient }: SearchC
                   <TextField
                     id="cep"
                     label="CEP"
-                    type="number"
                     defaultValue={data?.cep || ""}
                   />
                   <TextField
