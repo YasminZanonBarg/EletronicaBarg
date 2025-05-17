@@ -1,7 +1,7 @@
 import "@material/web/icon/icon.js";
 import { RailContainer, NavItem, LogoutButton } from "./styles";
 import { useCallback, useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // Importando useLocation e useNavigate
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface NavItemProps {
   icon: string;
@@ -10,42 +10,44 @@ interface NavItemProps {
 }
 
 const navItems: NavItemProps[] = [
-  { icon: "draft_orders", label: "O.S.", path:"/GeralServiceOrder" },
-  { icon: "account_circle", label: "Clientes", path:"/GeralClient" },
-  { icon: "analytics", label: "Relatório", path:"/Report" },
-  { icon: "description", label: "Docs", path:"/" },
+  { icon: "draft_orders", label: "O.S.", path: "/GeralServiceOrder" },
+  { icon: "account_circle", label: "Clientes", path: "/GeralClient" },
+  { icon: "analytics", label: "Relatório", path: "/Report" },
+  {
+    icon: "description",
+    label: "Docs",
+    path: "https://1drv.ms/w/c/af0a0d99fb6fb028/EbXQwJ_8ykFBr-njIfWtVV0Bk5UyEFJ0YNMziSCfv3C6VA?e=sWRd9c",
+  },
 ];
 
 export function NavigationRail() {
-  const location = useLocation(); // Pegando a URL atual
-  const navigate = useNavigate(); // Para navegação programática
-  
-  // Função para determinar qual aba está ativa
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const getActiveIndex = () => {
-    // Verificando se a URL atual pertence à aba "O.S." ou qualquer página filha relacionada
-    if (location.pathname.startsWith("/GeralServiceOrder")) {
-      return 0; // A aba O.S. deve ser ativa
-    }
-    if (location.pathname.startsWith("/GeralClient")) {
-      return 1; // A aba Clientes deve ser ativa
-    }
-    if (location.pathname.startsWith("/Report")) {
-      return 2; // A aba Relatório deve ser ativa
-    }
-    if (location.pathname === "/") {
-      return 3; // A aba Docs deve ser ativa
-    }
-    return -1; // Caso não tenha nenhum índice correspondente
+    if (location.pathname.startsWith("/GeralServiceOrder")) return 0;
+    if (location.pathname.startsWith("/GeralClient")) return 1;
+    if (location.pathname.startsWith("/Report")) return 2;
+    return -1; // Docs é link externo, não está baseado em pathname
   };
 
-  const [activeIndex, setActiveIndex] = useState(getActiveIndex()); // Estado da aba ativa
+  const [activeIndex, setActiveIndex] = useState(getActiveIndex());
 
-  const handleNavClick = useCallback((index: number) => {
-    setActiveIndex(index);
-    navigate(navItems[index].path); // Navegar programaticamente para o path da aba
-  }, [navigate]);
+  const handleNavClick = useCallback(
+    (index: number) => {
+      setActiveIndex(index);
+      const path = navItems[index].path;
 
-  // Atualiza o estado da aba ativa quando a URL mudar
+      // Se for um link externo, abrir em nova aba
+      if (path.startsWith("http")) {
+        window.open(path, "_blank");
+      } else {
+        navigate(path);
+      }
+    },
+    [navigate]
+  );
+
   useEffect(() => {
     setActiveIndex(getActiveIndex());
   }, [location.pathname]);
@@ -55,8 +57,8 @@ export function NavigationRail() {
       {navItems.map((item, index) => (
         <NavItem
           key={item.path}
-          active={index === activeIndex} // Marca a aba como ativa
-          onClick={() => handleNavClick(index)} // Função de clique para navegar
+          active={index === activeIndex}
+          onClick={() => handleNavClick(index)}
         >
           <md-icon className="icon">{item.icon}</md-icon>
           <span className="label">{item.label}</span>
@@ -65,16 +67,15 @@ export function NavigationRail() {
 
       <LogoutButton
         onClick={() => {
-          const confirmLogout = window.confirm("Tem certeza que deseja sair?"); 
+          const confirmLogout = window.confirm("Tem certeza que deseja sair?");
           if (confirmLogout) {
-            localStorage.removeItem("token"); 
-            navigate("/"); 
+            localStorage.removeItem("token");
+            navigate("/");
           }
         }}
       >
         <md-icon className="icon">logout</md-icon>
       </LogoutButton>
-
     </RailContainer>
   );
 }
