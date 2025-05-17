@@ -17,6 +17,7 @@ import { useEffect, useState } from "react"
 export function RegisterServiceOrder() {
   // Use State - Alterações no número da ordem de serviço
   const [numeroOrdemServico, setNumeroOrdemServico] = useState("")
+  const [flagUrgencia, setFlagUrgencia] = useState(false)
   const queryClient = useQueryClient();  
 
   const { data } = useQuery({
@@ -127,6 +128,13 @@ export function RegisterServiceOrder() {
     window.print()
     document.body.innerHTML = originalContents
     window.location.reload()
+  }
+
+  const handleUpdateFlagUrgencia = () => {
+    setFlagUrgencia(prevFlag => {
+      const newFlag = !prevFlag;
+      return newFlag;
+    })
   }
 
   if (!data) {
@@ -241,8 +249,8 @@ export function RegisterServiceOrder() {
                       label="Localização Aparelho"
                     />
                   </div>
-                  <button>
-                    <md-icon style={{ opacity: 0.38 }}>error</md-icon>
+                  <button type="button" onClick={handleUpdateFlagUrgencia}>
+                    <md-icon style={{ color: flagUrgencia ? "#c70000" : "" }}>error</md-icon>
                   </button>
                   <div className="pre_budget">
                     <TextField
