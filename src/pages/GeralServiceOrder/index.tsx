@@ -143,7 +143,7 @@ export function GeralServiceOrder() {
                           onDeleteSuccess={handleDeleteSuccess}
                         />
                         <button type="button" onClick={() => handleUpdateFlagUrgencia(serviceOrder.id)}>
-                          <md-icon style={{ color: serviceOrder.flagUrgencia ? "#871414" : "" }}>
+                          <md-icon style={{ color: serviceOrder.flagUrgencia ? "#c70000" : "" }}>
                             error
                           </md-icon>
                         </button>
