@@ -7,8 +7,8 @@ import { SearchButton } from "../../components/SearchButton"
 import { useState } from "react"
 import { Pagination } from "../../components/Pagination"
 import DeleteItemClientModal from "../../components/DeleteItemClientModal"
-
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { updateFlagNegativadoRequest } from "../../http/update-flag-negativado" 
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { getClients } from "../../http/get-clients"
 import { useNavigate } from "react-router-dom"
 
@@ -24,6 +24,13 @@ export function GeralClient() {
       queryKey: ['clients'],
       queryFn: getClients,
       staleTime: 1000 * 60, 
+  })
+
+  const mutation = useMutation({
+      mutationFn: updateFlagNegativadoRequest,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["clients"] })
+      },
   })
 
   if (!data) return null
@@ -49,6 +56,10 @@ export function GeralClient() {
 
   const handleDeleteSuccess = () => {
     queryClient.invalidateQueries({ queryKey: ["clients"] })
+  }
+
+  const handleUpdateFlagNegativado = async (clientId: string) => {
+    mutation.mutate({ id: clientId })
   }
 
   return (
@@ -106,8 +117,10 @@ export function GeralClient() {
                             clientId={client.id}
                             onDeleteSuccess={handleDeleteSuccess}
                           />
-                          <button type="submit">
-                            <md-icon>warning</md-icon>
+                          <button type="button" onClick={() => handleUpdateFlagNegativado(client.id)}>
+                            <md-icon style={{ color: client.flagNegativado ? "#c70000" : "" }}>
+                              warning
+                            </md-icon>
                           </button>
                         </span>
                       </td>
