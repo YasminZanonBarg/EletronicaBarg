@@ -26,6 +26,7 @@ export function RegisterClient() {
   // Estados e funções para buscar CEP
   const [cep, setCep] = useState("")
   const [cidade, setCidade] = useState("")
+  const [flagNegativado, setflagNegativado] = useState(false)
 
   const createCepMutation = useMutation({
     mutationFn: createAndGetCep,
@@ -116,6 +117,7 @@ export function RegisterClient() {
         celular2: celular2 || null,
         telefone1: telefone1 || null,
         telefone2: telefone2 || null,
+        flagNegativado: flagNegativado
       })
 
       alert('Cliente cadastrado com sucesso!')
@@ -124,6 +126,13 @@ export function RegisterClient() {
       console.error('Erro ao salvar cliente:', error)
       alert('Erro ao salvar cliente. Tente novamente.')
     }
+  }
+
+  const handleUpdateFlagNegativado = () => {
+    setflagNegativado(prevFlag => {
+      const newFlag = !prevFlag;
+      return newFlag;
+    })
   }
 
   const today = new Date()
@@ -171,8 +180,10 @@ export function RegisterClient() {
 
                   <div className="observation">
                     <TextField id="observation" label="Observação" multiline />
-                    <button className="clear-button">
-                      <md-icon>error</md-icon>
+                    <button type="button" className="clear-button" onClick={handleUpdateFlagNegativado}>
+                      <md-icon style={{ color: flagNegativado ? "#c70000" : "" }}>
+                        warning
+                      </md-icon>
                     </button>
                   </div>
                 </div>

@@ -251,7 +251,9 @@ export function RegisterServiceOrder() {
                     />
                   </div>
                   <button type="button" onClick={handleUpdateFlagUrgencia}>
-                    <md-icon style={{ color: flagUrgencia ? "#c70000" : "" }}>error</md-icon>
+                    <md-icon style={{ color: flagUrgencia ? "#c70000" : "" }}>
+                      error
+                    </md-icon>
                   </button>
                   <div className="pre_budget">
                     <TextField
