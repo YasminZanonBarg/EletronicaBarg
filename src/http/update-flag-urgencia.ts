@@ -8,6 +8,7 @@ export async function updateFlagUrgenciaRequest({ id }: UpdateFlagUrgenciaReques
     headers: {
       'Content-Type': 'application/json',
     },
+    body: JSON.stringify({ id }),
   })
 
   if (!response.ok) {
