@@ -13,6 +13,7 @@ interface CreateServiceOrderRequest {
   valorTotal?: string | null
   motivos?: string | null
   notas?: string | null
+  flagUrgencia?: boolean
 }
 
 export async function createServiceOrder({
@@ -30,6 +31,7 @@ export async function createServiceOrder({
   valorTotal,
   motivos,
   notas,
+  flagUrgencia
 }: CreateServiceOrderRequest) {
   await fetch('https://eletronica-barg-api.onrender.com/create-service-order', {
     method: 'POST',
@@ -51,6 +53,7 @@ export async function createServiceOrder({
       valorTotal,
       motivos,
       notas,
+      flagUrgencia
     }),
   })
 }

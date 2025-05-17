@@ -19,6 +19,7 @@ export type ServiceOrderResponse = {
   valorTotal?: string | null
   motivos?: string | null
   notas?: string | null
+  flagUrgencia?: boolean
 }[]
 
 export async function getServiceOrder(): Promise<ServiceOrderResponse> {

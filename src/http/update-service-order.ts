@@ -16,6 +16,7 @@ interface UpdateServiceOrderRequest {
   motivos?: string | null
   notas?: string | null
   dataSaida?: Date | null
+  flagUrgencia?: boolean
 }
 
 export async function updateServiceOrderRequest({

@@ -7,8 +7,9 @@ import { FilterSituationSelect } from "../../components/FilterSituationSelect"
 import { Pagination } from "../../components/Pagination"
 import DeleteItemServiceOrderModal from "../../components/DeleteItemServiceOrderModal"
 import { useState } from "react"
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { getServiceOrder } from "../../http/get-service-order"
+import { updateFlagUrgenciaRequest } from "../../http/update-flag-urgencia" 
 import { useNavigate } from "react-router-dom"
 
 import {
@@ -33,6 +34,13 @@ export function GeralServiceOrder() {
     queryKey: ["get-service-order"],
     queryFn: getServiceOrder,
     staleTime: 1000 * 60,
+  })
+
+  const mutation = useMutation({
+    mutationFn: updateFlagUrgenciaRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["get-service-order"] })
+    },
   })
 
   if (!data) return null
@@ -73,6 +81,10 @@ export function GeralServiceOrder() {
 
   const handleEdit = (serviceOrderId: string) => {
     navigate(`/GeralServiceOrder/Edit?id=${serviceOrderId}`); 
+  }
+
+  const handleUpdateFlagUrgencia = async (serviceOrderId: string) => {
+    mutation.mutate({ id: serviceOrderId })
   }
 
   return (
@@ -130,8 +142,10 @@ export function GeralServiceOrder() {
                           serviceOrderId={serviceOrder.id}
                           onDeleteSuccess={handleDeleteSuccess}
                         />
-                        <button type="button">
-                          <md-icon>error</md-icon>
+                        <button type="button" onClick={() => handleUpdateFlagUrgencia(serviceOrder.id)}>
+                          <md-icon style={{ opacity: serviceOrder.flagUrgencia ? 1 : 0.5 }}>
+                            error
+                          </md-icon>
                         </button>
                       </span>
                     </td>

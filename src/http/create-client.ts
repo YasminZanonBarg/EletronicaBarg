@@ -12,6 +12,7 @@ interface CreateClientRequest {
   celular2?: string | null
   telefone1?: string | null
   telefone2?: string | null
+  flagNegativado?: boolean
 }
 
 export async function createClientRequest({
@@ -28,6 +29,7 @@ export async function createClientRequest({
   celular2,
   telefone1,
   telefone2,
+  flagNegativado
 }: CreateClientRequest) {
   await fetch('https://eletronica-barg-api.onrender.com/create-client', {
     method: 'POST',
@@ -48,6 +50,7 @@ export async function createClientRequest({
       celular2,
       telefone1,
       telefone2,
+      flagNegativado
     }),
   })
 }
