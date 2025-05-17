@@ -33,20 +33,20 @@ export function NavigationRail() {
 
   const [activeIndex, setActiveIndex] = useState(getActiveIndex());
 
-  const handleNavClick = useCallback(
-    (index: number) => {
-      setActiveIndex(index);
-      const path = navItems[index].path;
-
-      // Se for um link externo, abrir em nova aba
-      if (path.startsWith("http")) {
-        window.open(path, "_blank");
-      } else {
-        navigate(path);
-      }
-    },
-    [navigate]
-  );
+  const handleNavClick = useCallback((index: number) => {
+    const item = navItems[index];
+    
+    // Se for link externo, apenas abre em nova aba
+    if (item.path.startsWith("http")) {
+      window.open(item.path, "_blank");
+      return // Não altera o activeIndex
+    }
+  
+    // Para rotas internas, atualiza o estado e navega
+    setActiveIndex(index)
+    navigate(item.path)
+  }, [navigate])
+  
 
   useEffect(() => {
     setActiveIndex(getActiveIndex());
@@ -57,7 +57,7 @@ export function NavigationRail() {
       {navItems.map((item, index) => (
         <NavItem
           key={item.path}
-          active={index === activeIndex && !navItems[index].path.startsWith("http")}
+          active={index === activeIndex}
           onClick={() => handleNavClick(index)}
         >
           <md-icon className="icon">{item.icon}</md-icon>
