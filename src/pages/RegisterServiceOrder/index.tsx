@@ -98,6 +98,7 @@ export function RegisterServiceOrder() {
           valorTotal: String(
             (valorPecas ? Number(valorPecas) : 0) + (valorMaoDeObra ? Number(valorMaoDeObra) : 0)
           ),
+          flagUrgencia: flagUrgencia
         })
   
         alert('Ordem de serviço cadastrada com sucesso!')
