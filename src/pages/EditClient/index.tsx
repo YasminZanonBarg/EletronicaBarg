@@ -94,6 +94,7 @@ export function EditClient() {
       celular2: (document.getElementById("celular2") as HTMLInputElement).value,
       telefone1: (document.getElementById("telefone1") as HTMLInputElement).value,
       telefone2: (document.getElementById("telefone2") as HTMLInputElement).value,
+      flagNegativado: client.flagNegativado
     }
     
     // Atualização dos dados de endereço
@@ -125,6 +126,12 @@ export function EditClient() {
         alert("Erro ao atualizar o cliente.")
       })
   }  
+
+  function handleUpdateFlagNegativado() {
+    if (client) {
+      setClient((prev) => prev ? { ...prev, flagNegativado: !prev.flagNegativado } : null)
+    }
+  }
 
   const today = new Date()
   const formattedDate = today.toISOString().split('T')[0]
@@ -207,8 +214,10 @@ export function EditClient() {
                       multiline 
                       defaultValue={client.observacao ?? ''}
                     />
-                    <button className="clear-button">
-                      <md-icon>error</md-icon>
+                    <button type="button" className="clear-button" onClick={handleUpdateFlagNegativado}>
+                      <md-icon style={{ color: client.flagNegativado ? "#c70000" : "" }}>
+                        warning
+                      </md-icon>
                     </button>
                   </div>
                 </div>
