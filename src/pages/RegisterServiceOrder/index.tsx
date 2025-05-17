@@ -242,7 +242,7 @@ export function RegisterServiceOrder() {
                     />
                   </div>
                   <button>
-                    <md-icon>error</md-icon>
+                    <md-icon style={{ opacity: 0.38 }}>error</md-icon>
                   </button>
                   <div className="pre_budget">
                     <TextField
