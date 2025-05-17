@@ -242,7 +242,7 @@ export function RegisterServiceOrder() {
                     />
                   </div>
                   <button>
-                    <md-icon>stars</md-icon>
+                    <md-icon>error</md-icon>
                   </button>
                   <div className="pre_budget">
                     <TextField
