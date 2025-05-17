@@ -129,7 +129,8 @@ export function EditServiceOrder() {
       notas: (document.getElementById("notas") as HTMLInputElement)?.value || null,
       preOrcamento: (document.getElementById("preOrcamento") as HTMLInputElement)?.value,
       valorMaoDeObra: (document.getElementById("valorMaoDeObra") as HTMLInputElement)?.value,
-      valorPecas: (document.getElementById("valorPecas") as HTMLInputElement)?.value 
+      valorPecas: (document.getElementById("valorPecas") as HTMLInputElement)?.value,
+      flagUrgencia: serviceOrder.flagUrgencia
     }
 
     try {
@@ -142,6 +143,12 @@ export function EditServiceOrder() {
     }
   }
 
+  function handleUpdateFlagUrgencia() {
+    if (serviceOrder) {
+      setServiceOrder((prev) => prev ? { ...prev, flagUrgencia: !prev.flagUrgencia } : null)
+    }
+  }
+  
   if (!serviceOrder) return <p>Ordem de serviço não encontrada</p>
 
   return (
@@ -262,8 +269,10 @@ export function EditServiceOrder() {
                         defaultValue={serviceOrder.localizacaoAparelho}
                       />
                     </div>
-                    <button>
-                      <md-icon>stars</md-icon>
+                    <button type="button" onClick={handleUpdateFlagUrgencia}>
+                      <md-icon style={{ color: serviceOrder.flagUrgencia ? "#c70000" : "" }}>
+                        error
+                      </md-icon>
                     </button>
                     <div className="preOrcamento">
                       <TextField 
