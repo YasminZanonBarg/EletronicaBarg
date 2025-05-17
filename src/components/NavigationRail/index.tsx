@@ -57,7 +57,7 @@ export function NavigationRail() {
       {navItems.map((item, index) => (
         <NavItem
           key={item.path}
-          active={index === activeIndex}
+          active={index === activeIndex && !navItems[index].path.startsWith("http")}
           onClick={() => handleNavClick(index)}
         >
           <md-icon className="icon">{item.icon}</md-icon>
