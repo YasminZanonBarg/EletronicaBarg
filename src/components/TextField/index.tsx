@@ -67,7 +67,16 @@ export const TextField: React.FC<TextFieldProps> = ({
         readOnly={!editable}
         onKeyDown={onKeyDown}
         ref={inputRef}
-        {...(type === 'number' && min !== undefined ? { min } : {})} 
+        {...(type === 'number' && min !== undefined ? { min } : {})}
+        onInput={(e) => {
+          if (type === 'number') {
+            const input = e.currentTarget as HTMLInputElement
+            if (Number(input.value) < 0) {
+              input.value = '0'
+            }
+          }
+        }}
+        onChange={(e) => onChange && onChange(e.target.value)}
       />
     )}
   </InputContainer>
