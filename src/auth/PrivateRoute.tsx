@@ -9,7 +9,7 @@ export function PrivateRoute({ children }: PrivateRouteProps) {
   const { isAuthenticated, isLoading } = useAuth()
 
   if (isLoading) {
-    return <div>Carregando...</div> 
+    return <div></div> 
   }
 
   return isAuthenticated ? children : <Navigate to="/" />
