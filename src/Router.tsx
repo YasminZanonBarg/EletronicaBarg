@@ -7,20 +7,20 @@ import { GeralClient } from './pages/GeralClient'
 import { RegisterClient } from './pages/RegisterClient'
 import { EditClient } from './pages/EditClient'
 import { Report } from './pages/Report'
+import { PrivateRoute } from './auth/PrivateRoute'
 
 export function Router() {
-    return(
-        <Routes>
-            <Route>
-                <Route path='/' element={<Login />} />
-                <Route path='/GeralServiceOrder' element={<GeralServiceOrder />} />
-                <Route path='/GeralServiceOrder/Register' element={<RegisterServiceOrder />} />
-                <Route path='/GeralServiceOrder/Edit' element={<EditServiceOrder />} />
-                <Route path='/GeralClient' element={<GeralClient />} />
-                <Route path='/GeralClient/Register' element={<RegisterClient />} />
-                <Route path='/GeralClient/Edit' element={<EditClient />} />
-                <Route path='/Report' element={<Report />} />
-            </Route>
-        </Routes>
-    );
+  return (
+    <Routes>
+      <Route path="/" element={<Login />} />
+
+      <Route path="/GeralServiceOrder" element={<PrivateRoute><GeralServiceOrder /></PrivateRoute>} />
+      <Route path="/GeralServiceOrder/Register" element={<PrivateRoute><RegisterServiceOrder /></PrivateRoute>} />
+      <Route path="/GeralServiceOrder/Edit" element={<PrivateRoute><EditServiceOrder /></PrivateRoute>} />
+      <Route path="/GeralClient" element={<PrivateRoute><GeralClient /></PrivateRoute>} />
+      <Route path="/GeralClient/Register" element={<PrivateRoute><RegisterClient /></PrivateRoute>} />
+      <Route path="/GeralClient/Edit" element={<PrivateRoute><EditClient /></PrivateRoute>} />
+      <Route path="/Report" element={<PrivateRoute><Report /></PrivateRoute>} />
+    </Routes>
+  )
 }
