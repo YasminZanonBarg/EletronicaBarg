@@ -20,6 +20,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 import { createLogin } from "../../http/create-login"
+import { useAuth } from "../../auth/AuthContext" 
 
 const createLoginForm = z.object({
   nomeUsuario: z.string(),
@@ -32,6 +33,7 @@ export function Login() {
   const navigate = useNavigate()
   const [error, setError] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
+  const { login } = useAuth() 
 
   const {
     register,
@@ -51,6 +53,7 @@ export function Login() {
       })
 
       console.log("Login OK:", response)
+      login()
       navigate("/GeralServiceOrder")
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -89,7 +92,7 @@ export function Login() {
               toggle
               slot="trailing-icon"
               onClick={(e) => {
-                e.preventDefault() 
+                e.preventDefault()
                 setShowPassword((prev) => !prev)
               }}
             >
