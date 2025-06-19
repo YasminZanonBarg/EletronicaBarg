@@ -1,7 +1,8 @@
-import "@material/web/icon/icon.js";
-import { RailContainer, NavItem, LogoutButton } from "./styles";
-import { useCallback, useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import "@material/web/icon/icon.js"
+import { RailContainer, NavItem, LogoutButton } from "./styles"
+import { useCallback, useState, useEffect } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useAuth } from "../../auth/AuthContext"
 
 interface NavItemProps {
   icon: string;
@@ -18,27 +19,28 @@ const navItems: NavItemProps[] = [
     label: "Docs",
     path: "https://1drv.ms/w/c/af0a0d99fb6fb028/EbXQwJ_8ykFBr-njIfWtVV0Bk5UyEFJ0YNMziSCfv3C6VA?e=sWRd9c",
   },
-];
+]
 
 export function NavigationRail() {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const location = useLocation()
+  const navigate = useNavigate()
+  const { logout } = useAuth()
 
   const getActiveIndex = () => {
-    if (location.pathname.startsWith("/GeralServiceOrder")) return 0;
-    if (location.pathname.startsWith("/GeralClient")) return 1;
-    if (location.pathname.startsWith("/Report")) return 2;
-    return -1; // Docs é link externo, não está baseado em pathname
-  };
+    if (location.pathname.startsWith("/GeralServiceOrder")) return 0
+    if (location.pathname.startsWith("/GeralClient")) return 1
+    if (location.pathname.startsWith("/Report")) return 2
+    return -1
+  }
 
-  const [activeIndex, setActiveIndex] = useState(getActiveIndex());
+  const [activeIndex, setActiveIndex] = useState(getActiveIndex())
 
   const handleNavClick = useCallback((index: number) => {
-    const item = navItems[index];
+    const item = navItems[index]
     
     // Se for link externo, apenas abre em nova aba
     if (item.path.startsWith("http")) {
-      window.open(item.path, "_blank");
+      window.open(item.path, "_blank")
       return // Não altera o activeIndex
     }
   
@@ -69,13 +71,13 @@ export function NavigationRail() {
         onClick={() => {
           const confirmLogout = window.confirm("Tem certeza que deseja sair?");
           if (confirmLogout) {
-            localStorage.removeItem("token");
-            navigate("/");
+            logout()
+            navigate("/")
           }
         }}
       >
         <md-icon className="icon">logout</md-icon>
       </LogoutButton>
     </RailContainer>
-  );
+  )
 }
