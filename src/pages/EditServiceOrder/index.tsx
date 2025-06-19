@@ -149,7 +149,7 @@ export function EditServiceOrder() {
     }
   }
   
-  if (!serviceOrder) return <p>Ordem de serviço não encontrada</p>
+  if (!serviceOrder) return <p></p>
 
   return (
     <Container>
