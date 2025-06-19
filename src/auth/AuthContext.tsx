@@ -12,7 +12,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
-    // Carrega o estado salvo do localStorage ao iniciar
     const storedAuth = localStorage.getItem('isAuthenticated')
     if (storedAuth === 'true') {
       setIsAuthenticated(true)
