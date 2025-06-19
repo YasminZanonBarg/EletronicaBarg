@@ -260,6 +260,7 @@ export function RegisterServiceOrder() {
                       id="preOrcamento"
                       label="Pré-Orçamento"
                       type="number"
+                      min={0}
                     />
                   </div>
                 </div>

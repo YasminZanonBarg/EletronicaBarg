@@ -280,6 +280,7 @@ export function EditServiceOrder() {
                         type="number" 
                         label="Pré-Orçamento"
                         defaultValue={String(serviceOrder.preOrcamento)}
+                        min={0}
                       />
                     </div>
                   </div>

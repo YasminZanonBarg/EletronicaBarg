@@ -15,8 +15,9 @@ type TextFieldProps = {
   value?: string;
   onChange?: (value: string) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void; 
-};
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  min?: number;  
+}
 
 export const TextField: React.FC<TextFieldProps> = ({
   id,
@@ -33,6 +34,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   onBlur,
   onKeyDown,
   inputRef,
+  min, 
 }) => (
   <InputContainer>
     <Label htmlFor={id}>{label}</Label>
@@ -63,9 +65,10 @@ export const TextField: React.FC<TextFieldProps> = ({
         type={type}
         defaultValue={defaultValue}
         readOnly={!editable}
-        onKeyDown={onKeyDown} // Passa o evento diretamente
+        onKeyDown={onKeyDown}
         ref={inputRef}
+        {...(type === 'number' && min !== undefined ? { min } : {})} 
       />
     )}
   </InputContainer>
-);
+)
