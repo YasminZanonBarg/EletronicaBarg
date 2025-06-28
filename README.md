@@ -1,50 +1,17 @@
-# React + TypeScript + Vite
+# Sistema WEB da Eletrônica Barg
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema proposto para o gerenciamento de ordem de serviço, com módulos de Ordem de Serviço, Clientes e Relatórios:
 
-Currently, two official plugins are available:
+![image](https://github.com/user-attachments/assets/4a330234-11dd-42c1-bb3a-117449015781)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![image](https://github.com/user-attachments/assets/4426dc1c-d633-4430-b8dc-2855968bec6b)
 
-## Expanding the ESLint configuration
+![image](https://github.com/user-attachments/assets/4ccf4885-1306-4ff2-ba0f-0a27281ae043)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![image](https://github.com/user-attachments/assets/d915866a-7850-44d4-b253-a5800e8606fd)
 
-- Configure the top-level `parserOptions` property like this:
+![image](https://github.com/user-attachments/assets/73c17fdc-f4a8-47ff-9e09-d56bf531dd8d)
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+![image](https://github.com/user-attachments/assets/3c162798-31f0-4ebf-b750-ea9c10467dc1)
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+![image](https://github.com/user-attachments/assets/b0dd8bbd-eb37-4640-b627-77fbc5964952)
